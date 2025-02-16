@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'signinscreen.dart';
+import '../LoginScreens/signinscreen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   @override

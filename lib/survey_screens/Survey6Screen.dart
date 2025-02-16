@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../homescreen.dart';
+import '../HomeScreens/homescreen.dart';
 
 class Survey6Screen extends StatefulWidget {
   @override

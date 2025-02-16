@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'welcomepicturesscreen.dart';
+import 'EntryScreens/welcomepicturesscreen.dart';
 
 void main() {
   runApp(VitalStatsApp());

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vitalstats/signinscreen.dart';
-import 'survey_screens/Survey1Screen.dart'; // Import the first survey screen
+import 'package:vitalstats/LoginScreens/signinscreen.dart';
+import '../survey_screens/Survey1Screen.dart'; // Import the first survey screen
 
 class SignUp3Screen extends StatefulWidget {
   @override
