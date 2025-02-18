@@ -15,26 +15,72 @@ class VitalStatsApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFE6E6FA),
-      body: SingleChildScrollView(
+      body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeader(),
-            SizedBox(height: 20),
-            _buildAboutYou(),
-            SizedBox(height: 20),
-            _buildFeatureCards(context),
-            SizedBox(height: 20),
-            _buildEditSection(context),
-            SizedBox(height: 20),
-            _buildQuickAccess(),
+            Expanded(
+              child: SingleChildScrollView(
+                physics: ClampingScrollPhysics(), // Prevent overscroll
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildHeader(),
+                    SizedBox(height: 10),
+                    _buildAboutYou(),
+                    SizedBox(height: 10),
+                    _buildFeatureCards(context),
+                    SizedBox(height: 10),
+                    _buildEditSection(context),
+                    SizedBox(height: 10),
+                    _buildQuickAccess(),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.camera_alt),
+            label: 'Camera',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu),
+            label: 'Menu',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.purple,
+        unselectedItemColor: Colors.grey,
+        onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        elevation: 5,
       ),
     );
   }
@@ -48,7 +94,7 @@ class HomeScreen extends StatelessWidget {
           bottomRight: Radius.circular(20),
         ),
       ),
-      padding: EdgeInsets.only(top: 40, left: 20, right: 20, bottom: 20),
+      padding: EdgeInsets.only(top: 15, left: 20, right: 20, bottom: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -62,14 +108,14 @@ class HomeScreen extends StatelessWidget {
                     "HELLO, PONNURI!",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 24,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
                     "+99  •  Premium",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 14,
+                        fontSize: 10,
                         fontWeight: FontWeight.normal),
                   ),
                 ],
@@ -80,12 +126,12 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 15),
+            padding: EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(6),
             ),
             child: TextField(
               decoration: InputDecoration(
@@ -104,15 +150,15 @@ class HomeScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 2,
-              blurRadius: 5,
+              spreadRadius: 1,
+              blurRadius: 4,
             ),
           ],
         ),
@@ -121,18 +167,18 @@ class HomeScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.info, color: Colors.purple, size: 24),
-                SizedBox(width: 8),
+                Icon(Icons.info, color: Colors.purple, size: 16),
+                SizedBox(width: 4),
                 Text(
                   "About You",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 4),
             Text(
-              "Lorem ipsum dolor amet, consectetur adipiscing elit.",
-              style: TextStyle(color: Colors.grey[600], fontSize: 12),
+              "Lorem ipsum dolor amet, consectetur adipiscing elit. Vivamus habitant penatibus utrices senectus himenaeos. Libero tincidunt...",
+              style: TextStyle(color: Colors.grey[600], fontSize: 10),
             ),
           ],
         ),
@@ -153,17 +199,16 @@ class HomeScreen extends StatelessWidget {
             SizedBox(width: 10),
             _featureCard("My Hydration", Icons.local_drink),
             SizedBox(width: 10),
-            _featureCard("Glucose Tracker", Icons.bloodtype),
+            _featureCard("My Glucose", Icons.bloodtype), // New card added
           ],
         ),
       ),
     );
   }
 
-
   Widget _buildEditSection(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double cardWidth = (screenWidth - 60) / 2.5; // Adjust for smaller size
+    double cardWidth = (screenWidth - 60) / 3; // Adjust for smaller size
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -174,25 +219,26 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CircularPercentIndicator(
-                radius: 60.0,
-                lineWidth: 8.0,
+                radius: 45.0,
+                lineWidth: 7.0,
                 percent: 0.89,
                 center: Text("89%",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                 progressColor: Colors.purple,
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _statCard("1600 Steps", Icons.directions_walk, cardWidth),
-                  SizedBox(height: 8),
+                  SizedBox(height: 4),
                   _statCard("200 Cal", Icons.local_fire_department, cardWidth),
-                  SizedBox(height: 8),
+                  SizedBox(height: 4),
                   _statCard("54 Km", Icons.map, cardWidth),
                 ],
               ),
             ],
           ),
-          SizedBox(height: 12), // Add spacing between stat cards and button
+          SizedBox(height: 10),
           Center(
             child: ElevatedButton(
               onPressed: () {
@@ -201,13 +247,16 @@ class HomeScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.purple, // Button color
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8), // Rounded corners
+                  borderRadius: BorderRadius.circular(4), // Rounded corners
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               ),
               child: Text(
                 "Edit Goal",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
             ),
           ),
@@ -216,10 +265,9 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-
   Widget _buildQuickAccess() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
           Row(
@@ -229,7 +277,7 @@ class HomeScreen extends StatelessWidget {
               _quickAccessCard("My Medication", Icons.medication),
             ],
           ),
-          SizedBox(height: 05), // Add spacing between rows
+          SizedBox(height: 10), // Add spacing between rows
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -242,14 +290,13 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-
   Widget _featureCard(String title, IconData icon) {
     return Container(
-      width: 120, // Adjusted for rectangular shape
-      height: 60, // Adjusted for rectangular shape
+      width: 100, // Adjusted for rectangular shape
+      height: 50, // Adjusted for rectangular shape
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(6),
         boxShadow: [
           BoxShadow(
             color: Colors.black12,
@@ -261,8 +308,8 @@ class HomeScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 24, color: Colors.purple),
-          SizedBox(width: 5),
+          Icon(icon, size: 18, color: Colors.purple),
+          SizedBox(width: 4),
           Text(title,
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
         ],
@@ -273,12 +320,11 @@ class HomeScreen extends StatelessWidget {
   Widget _statCard(String title, IconData icon, double width) {
     return Container(
       width: width,
-      height: 50,
-      // Reduced size
-      padding: EdgeInsets.all(8),
+      height: 30,
+      padding: EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: Colors.white, // White background
-        borderRadius: BorderRadius.circular(12),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
             color: Colors.black12,
@@ -290,8 +336,8 @@ class HomeScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 20, color: Colors.purple),
-          SizedBox(width: 5),
+          Icon(icon, size: 16, color: Colors.purple),
+          SizedBox(width: 4),
           Text(title,
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
         ],
@@ -301,14 +347,12 @@ class HomeScreen extends StatelessWidget {
 
   Widget _quickAccessCard(String title, IconData icon) {
     return Container(
-      width: 175,
-      // Updated width
-      height: 80,
-      // Updated height
+      width: 150,
+      height: 60,
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(5), // Updated border radius
+        borderRadius: BorderRadius.circular(4),
         boxShadow: [
           BoxShadow(
             color: Colors.black12,
@@ -320,13 +364,13 @@ class HomeScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 28, color: Colors.blue),
-          SizedBox(width: 10), // Add spacing between icon and text
+          Icon(icon, size: 22, color: Colors.blue),
+          SizedBox(width: 8),
           Expanded(
             child: Text(
               title,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              overflow: TextOverflow.ellipsis, // Prevent overflow issues
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
