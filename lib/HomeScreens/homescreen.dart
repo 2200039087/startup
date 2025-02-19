@@ -21,43 +21,31 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  int _currentIndex = 0;
+  final PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFE6E6FA),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                physics: ClampingScrollPhysics(), // Prevent overscroll
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildHeader(),
-                    SizedBox(height: 10),
-                    _buildAboutYou(),
-                    SizedBox(height: 10),
-                    _buildFeatureCards(context),
-                    SizedBox(height: 10),
-                    _buildEditSection(context),
-                    SizedBox(height: 10),
-                    _buildQuickAccess(),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+      body: Stack(
+        children: [
+          PageView(
+            controller: _pageController,
+            scrollDirection: Axis.vertical,
+            onPageChanged: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            children: [
+              _buildHomeScreen1(context),
+              _buildHomeScreen2(context),
+              _buildHomeScreen3(context),
+            ],
+          ),
+          _buildVerticalDots(),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -74,15 +62,87 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Menu',
           ),
         ],
-        currentIndex: _selectedIndex,
+        currentIndex: 0,
         selectedItemColor: Colors.purple,
         unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
+        onTap: (index) {},
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
         elevation: 5,
       ),
     );
+  }
+
+  Widget _buildVerticalDots() {
+    return Positioned.fill(
+      child: Align(
+        alignment: Alignment.centerRight,
+        child: Padding(
+          padding: EdgeInsets.only(right: 6),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(3, (index) {
+              return GestureDetector(
+                onTap: () {
+                  _pageController.animateToPage(
+                    index,
+                    duration: Duration(milliseconds: 100),
+                    curve: Curves.easeInOut,
+                  );
+                },
+                child: Container(
+                  width: 8,
+                  height: 8,
+                  margin: EdgeInsets.symmetric(vertical: 6),
+                  decoration: BoxDecoration(
+                    color: _currentIndex == index ? Colors.purple : Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              );
+            }),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHomeScreen1(BuildContext context) {
+    return SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              physics: ClampingScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildHeader(),
+                  SizedBox(height: 10),
+                  _buildAboutYou(),
+                  SizedBox(height: 10),
+                  _buildFeatureCards(context),
+                  SizedBox(height: 10),
+                  _buildEditSection(context),
+                  SizedBox(height: 10),
+                  _buildQuickAccess(),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHomeScreen2(BuildContext context) {
+    // Placeholder for Home Screen 2
+    return Center(child: Text("Home Screen 2"));
+  }
+  Widget _buildHomeScreen3(BuildContext context) {
+    // Placeholder for Home Screen 3
+    return Center(child: Text("Home Screen 3"));
   }
 
   Widget _buildHeader() {
@@ -205,7 +265,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
   Widget _buildEditSection(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double cardWidth = (screenWidth - 60) / 3; // Adjust for smaller size
@@ -316,7 +375,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
   Widget _statCard(String title, IconData icon, double width) {
     return Container(
       width: width,
@@ -348,7 +406,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _quickAccessCard(String title, IconData icon) {
     return Container(
       width: 150,
-      height: 60,
+      height: 50, // Reduced height for more padding below
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -378,3 +436,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
