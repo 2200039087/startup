@@ -98,11 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   _pageController.animateToPage(
                     index,
-<<<<<<< HEAD
-                    duration: Duration(milliseconds: 300),
-=======
                     duration: Duration(milliseconds: 30),
->>>>>>> 59e3ab6 (made some changes)
                     curve: Curves.easeInOut,
                   );
                 },
