@@ -117,7 +117,7 @@ class _Survey2ScreenState extends State<Survey2Screen> {
                       controller: _scrollController,
                       physics: BouncingScrollPhysics(),
                       itemCount: 200,
-                      itemExtent: 20,
+                      itemExtent: 32,
                       reverse: true,
                       itemBuilder: (context, index) {
                         final value = 100 + index;
@@ -132,12 +132,12 @@ class _Survey2ScreenState extends State<Survey2Screen> {
                                 width: 2,
                                 color: Colors.grey,
                               ),
-                              SizedBox(height: 1),
+                              SizedBox(height: 4),
                               Text(
                                 value.toString(),
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 12,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -184,10 +184,17 @@ class _Survey2ScreenState extends State<Survey2Screen> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Continue',
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
+                        SizedBox(width: 10),
+                        Icon(Icons.arrow_forward, color: Colors.white),
+                      ],
+                    ),
                 ),
               ),
             ),

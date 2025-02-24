@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import ' home_screen2.dart'; // Import HomeScreen2
+import 'home_screen2.dart'; // Import HomeScreen2
 import 'home_screen3.dart'; // Import HomeScreen3
 
-void main() {
+void main()
+{
   runApp(VitalStatsApp());
 }
 
-class VitalStatsApp extends StatelessWidget {
+class VitalStatsApp extends StatelessWidget
+{
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
@@ -36,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFE6E6FA),
+      backgroundColor: Color(0xFFFFFFFF),
       body: Stack(
         children: [
           PageView(
@@ -95,17 +98,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   _pageController.animateToPage(
                     index,
+<<<<<<< HEAD
                     duration: Duration(milliseconds: 300),
+=======
+                    duration: Duration(milliseconds: 30),
+>>>>>>> 59e3ab6 (made some changes)
                     curve: Curves.easeInOut,
                   );
                 },
                 child: Container(
                   width: 8,
-                  height: 8,
-                  margin: EdgeInsets.symmetric(vertical: 6),
+                  height: 10,
+                  margin: EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
                     color: _currentIndex == index ? Colors.blueAccent : Colors.white,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(50),
                   ),
                 ),
               );
@@ -128,13 +135,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildHeader(),
-                  SizedBox(height: 10),
+                  SizedBox(height: 20),
                   _buildAboutYou(),
-                  SizedBox(height: 10),
+                  SizedBox(height: 20),
                   _buildFeatureCards(context),
-                  SizedBox(height: 10),
+                  SizedBox(height: 20),
                   _buildEditSection(context),
-                  SizedBox(height: 10),
+                  SizedBox(height: 20),
                   _buildQuickAccess(),
                 ],
               ),
@@ -248,17 +255,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildFeatureCards(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Increased vertical padding
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
             _featureCard("My Heart", Icons.favorite),
-            SizedBox(width: 10),
+            SizedBox(width: 12), // Increased spacing
             _featureCard("My SpO2", Icons.water_drop),
-            SizedBox(width: 10),
+            SizedBox(width: 12), // Increased spacing
             _featureCard("My Hydration", Icons.local_drink),
-            SizedBox(width: 10),
+            SizedBox(width: 12), // Increased spacing
             _featureCard("My Glucose", Icons.bloodtype), // New card added
           ],
         ),
@@ -271,7 +278,7 @@ class _HomeScreenState extends State<HomeScreen> {
     double cardWidth = (screenWidth - 60) / 3; // Adjust for smaller size
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Increased vertical padding
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -290,15 +297,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _statCard("1600 Steps", Icons.directions_walk, cardWidth),
-                  SizedBox(height: 4),
+                  SizedBox(height: 6), // Increased spacing
                   _statCard("200 Cal", Icons.local_fire_department, cardWidth),
-                  SizedBox(height: 4),
+                  SizedBox(height: 6), // Increased spacing
                   _statCard("54 Km", Icons.map, cardWidth),
                 ],
               ),
             ],
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 15), // Increased spacing
           Center(
             child: ElevatedButton(
               onPressed: () {
@@ -327,7 +334,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildQuickAccess() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Increased vertical padding
       child: Column(
         children: [
           Row(
@@ -337,7 +344,7 @@ class _HomeScreenState extends State<HomeScreen> {
               _quickAccessCard("My Medication", Icons.medication),
             ],
           ),
-          SizedBox(height: 10), // Add spacing between rows
+          SizedBox(height: 15), // Increased spacing between rows
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -349,7 +356,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
   Widget _featureCard(String title, IconData icon) {
     return Container(
       width: 100, // Adjusted for rectangular shape

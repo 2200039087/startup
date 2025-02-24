@@ -166,9 +166,16 @@ class _Survey4ScreenState extends State<Survey4Screen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: Text(
-                'Continue',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Continue',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                  SizedBox(width: 10),
+                  Icon(Icons.arrow_forward, color: Colors.white),
+                ],
               ),
             ),
           ),

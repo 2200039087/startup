@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vitalstats/LoginScreens/adhaarscreen.dart';
-
-
 import '../HomeScreens/homescreen.dart'; // Import the Aadhaar screen
 
 class SignInScreen extends StatefulWidget {
@@ -22,64 +20,58 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Color(0xFF005F40),
-        elevation: 0, // Remove the shadow below the AppBar
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Header Section
-            Container(
-              height: 150, // Adjusted height to accommodate the AppBar
-              decoration: BoxDecoration(
-                color: Color(0xFF005F40),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                ),
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.lock,
-                      size: 40,
-                      color: Colors.white,
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'Sign In',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+      body: Stack(
+        children: [
+          // Padding around the Card
+          Padding(
+            padding: const EdgeInsets.all(25.0), // Add padding around the card
+            child: Center(
+              child: Container(
+                width: 373, // Adjust width to match Figma design
+                height: 440, // Adjust height to match Figma design
+                margin: EdgeInsets.only(top: 100), // Adjust top margin to center
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      spreadRadius: 2,
+                      blurRadius: 10,
+                      offset: Offset(0, 3),
                     ),
                   ],
                 ),
-              ),
-            ),
-            SizedBox(height: 40),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
                   child: Form(
                     key: _formKey,
                     child: Column(
                       children: [
+                        SizedBox(height: 30), // Add space for the overlapping circle
+                        // Login Text
+                        Text(
+                          'Login',
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(height: 20),
                         // Email Address Field
                         TextFormField(
                           controller: emailController,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
-                            labelText: 'Email Address',
+                            labelText: 'Gmail',
                             prefixIcon: Icon(Icons.email),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
+                            filled: true,
+                            fillColor: Colors.white,
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -111,6 +103,8 @@ class _SignInScreenState extends State<SignInScreen> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
+                            filled: true,
+                            fillColor: Colors.white,
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -119,7 +113,24 @@ class _SignInScreenState extends State<SignInScreen> {
                             return null;
                           },
                         ),
-                        SizedBox(height: 32.0),
+                        SizedBox(height: 16.0),
+                        // Forgot Password
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: TextButton(
+                            onPressed: () {
+                              // Handle forgot password
+                            },
+                            child: Text(
+                              'Forgot password?',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 15.0),
                         // Sign In Button
                         SizedBox(
                           width: double.infinity,
@@ -146,14 +157,14 @@ class _SignInScreenState extends State<SignInScreen> {
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFF005F40), // Dark green color
-                              padding: EdgeInsets.symmetric(vertical: 16.0),
+                              backgroundColor: Colors.blue, // Blue color
+                              padding: EdgeInsets.symmetric(vertical: 13.0),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
                             child: Text(
-                              'Sign In',
+                              'Login',
                               style: TextStyle(fontSize: 18, color: Colors.white),
                             ),
                           ),
@@ -165,9 +176,9 @@ class _SignInScreenState extends State<SignInScreen> {
                           children: [
                             Text(
                               "Don't have an account?",
-                              style: TextStyle(color: Colors.grey[600]),
+                              style: TextStyle(color: Colors.black87),
                             ),
-                            SizedBox(width: 5),
+                            SizedBox(width: 6),
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -178,7 +189,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               child: Text(
                                 'Sign Up',
                                 style: TextStyle(
-                                  color: Color(0xFF005F40),
+                                  color: Colors.blue,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -191,8 +202,30 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+          // Circular Image Placeholder
+          Positioned(
+            top: 125,
+            left: MediaQuery.of(context).size.width / 2 - 73.5, // Center the image
+            child: Container(
+              width: 147,
+              height: 147,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    spreadRadius: 2,
+                    blurRadius: 10,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+
+            ),
+          ),
+        ],
       ),
     );
   }
