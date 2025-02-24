@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import ' home_screen2.dart'; // Import HomeScreen2
+import 'home_screen3.dart'; // Import HomeScreen3
 
 void main() {
   runApp(VitalStatsApp());
@@ -24,6 +26,13 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   final PageController _pageController = PageController();
 
+  void navigateToScreen(Widget screen) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => screen),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,8 +49,8 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             children: [
               _buildHomeScreen1(context),
-              _buildHomeScreen2(context),
-              _buildHomeScreen3(context),
+              HomeScreen2(),
+              HomeScreen3(),
             ],
           ),
           _buildVerticalDots(),
@@ -63,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
         currentIndex: 0,
-        selectedItemColor: Colors.purple,
+        selectedItemColor: Colors.blueAccent,
         unselectedItemColor: Colors.grey,
         onTap: (index) {},
         type: BottomNavigationBarType.fixed,
@@ -95,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 8,
                   margin: EdgeInsets.symmetric(vertical: 6),
                   decoration: BoxDecoration(
-                    color: _currentIndex == index ? Colors.purple : Colors.white,
+                    color: _currentIndex == index ? Colors.blueAccent : Colors.white,
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
@@ -136,19 +145,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildHomeScreen2(BuildContext context) {
-    // Placeholder for Home Screen 2
-    return Center(child: Text("Home Screen 2"));
-  }
-  Widget _buildHomeScreen3(BuildContext context) {
-    // Placeholder for Home Screen 3
-    return Center(child: Text("Home Screen 3"));
-  }
-
   Widget _buildHeader() {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFF8C41BE),
+        color: Color(0xFFAAD2FF),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),
@@ -227,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Row(
               children: [
-                Icon(Icons.info, color: Colors.purple, size: 16),
+                Icon(Icons.info, color: Colors.blueAccent, size: 16),
                 SizedBox(width: 4),
                 Text(
                   "About You",
@@ -265,6 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
   Widget _buildEditSection(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double cardWidth = (screenWidth - 60) / 3; // Adjust for smaller size
@@ -283,7 +284,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 percent: 0.89,
                 center: Text("89%",
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                progressColor: Colors.purple,
+                progressColor: Colors.blueAccent,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -304,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // Add your logic for editing goal
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.purple, // Button color
+                backgroundColor: Colors.blueAccent, // Button color
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(4), // Rounded corners
                 ),
@@ -367,7 +368,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 18, color: Colors.purple),
+          Icon(icon, size: 18, color: Colors.blueAccent),
           SizedBox(width: 4),
           Text(title,
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
@@ -375,6 +376,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
   Widget _statCard(String title, IconData icon, double width) {
     return Container(
       width: width,
@@ -394,7 +396,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 16, color: Colors.purple),
+          Icon(icon, size: 16, color: Colors.blueAccent),
           SizedBox(width: 4),
           Text(title,
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
@@ -422,7 +424,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 22, color: Colors.blue),
+          Icon(icon, size: 22, color: Colors.blueAccent),
           SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -436,12 +438,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
