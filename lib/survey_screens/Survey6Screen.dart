@@ -45,16 +45,19 @@ class _Survey6ScreenState extends State<Survey6Screen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            LinearProgressIndicator(
-              value: 1.0,
-              backgroundColor: Colors.grey[300],
-              color: Color(0xFF00C48C),
+            SizedBox(
+              height: 7, // Adjust height to decrease size
+              child: LinearProgressIndicator(
+                value: 1.0,
+                backgroundColor: Colors.grey[300],
+                color: Colors.blue, // Change to blue
+              ),
             ),
             SizedBox(height: 30),
             Text(
               'What do you rate your movement in a day?',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 30, // Increase font size
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
@@ -99,14 +102,14 @@ class _Survey6ScreenState extends State<Survey6Screen> {
                           trackHeight: 6.0,
                           thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
                           overlayShape: RoundSliderOverlayShape(overlayRadius: 24.0),
-                          overlayColor: Colors.green.withOpacity(0.2),
+                          overlayColor: Colors.blue.withOpacity(0.2), // Change to blue
                         ),
                         child: Slider(
                           value: movementRating.toDouble(),
                           min: 1,
                           max: 10,
                           divisions: 9,
-                          activeColor: Color(0xFF00C48C),
+                          activeColor: Colors.blue, // Change to blue
                           inactiveColor: Colors.grey[300],
                           label: '$movementRating',
                           onChanged: (value) {
@@ -137,7 +140,7 @@ class _Survey6ScreenState extends State<Survey6Screen> {
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: ElevatedButton(
+              child: ElevatedButton.icon(
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -147,23 +150,17 @@ class _Survey6ScreenState extends State<Survey6Screen> {
 
 
                 },
+                icon: Icon(Icons.arrow_forward, color: Colors.white), // Add icon
+                label: Text(
+                  'Continue',
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF00C48C),
+                  backgroundColor: Colors.blue, // Change to blue
                   padding: EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Continue',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    ),
-                    SizedBox(width: 10),
-                    Icon(Icons.arrow_forward, color: Colors.white),
-                  ],
                 ),
               ),
             ),

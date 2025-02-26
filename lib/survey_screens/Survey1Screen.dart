@@ -41,16 +41,19 @@ class _Survey1ScreenState extends State<Survey1Screen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  LinearProgressIndicator(
-                    value: 0.25,
-                    backgroundColor: Colors.grey[300],
-                    color: Color(0xFF00C48C),
+                  SizedBox(
+                    height: 7, // Adjust height to decrease size
+                    child: LinearProgressIndicator(
+                      value: 0.25,
+                      backgroundColor: Colors.grey[300],
+                      color: Colors.blue, // Change to blue
+                    ),
                   ),
                   SizedBox(height: 30),
                   Text(
                     'What is your weight?',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 30, // Increase font size
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
@@ -60,6 +63,7 @@ class _Survey1ScreenState extends State<Survey1Screen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       _buildToggleButton('lbs', _isLbs),
+                      SizedBox(width: 20), // Add space between cards
                       _buildToggleButton('kgs', !_isLbs),
                     ],
                   ),
@@ -85,23 +89,24 @@ class _Survey1ScreenState extends State<Survey1Screen> {
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: ElevatedButton(
+              child: ElevatedButton.icon(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Survey2Screen()),
                   );
                 },
+                icon: Icon(Icons.arrow_forward, color: Colors.white), // Add icon
+                label: Text(
+                  'Continue',
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF00C48C),
+                  backgroundColor: Colors.blue, // Change to blue
                   padding: EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                ),
-                child: Text(
-                  'Continue',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),
             ),
@@ -122,11 +127,11 @@ class _Survey1ScreenState extends State<Survey1Screen> {
         });
       },
       child: Container(
-        width: 100,
-        padding: EdgeInsets.symmetric(vertical: 12),
+        width: 120, // Increase width
+        padding: EdgeInsets.symmetric(vertical: 16), // Increase padding
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isSelected ? Color(0xFF00C48C) : Colors.grey[300],
+          color: isSelected ? Colors.blue : Colors.grey[300], // Change to blue
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
@@ -144,7 +149,7 @@ class _Survey1ScreenState extends State<Survey1Screen> {
     return Column(
       children: [
         Container(
-          height: 100, // Adjusted height to prevent overflow
+          height: 150, // Adjust height to fit the design
           child: NotificationListener<ScrollNotification>(
             onNotification: (ScrollNotification notification) {
               if (notification is ScrollUpdateNotification) {
@@ -172,12 +177,12 @@ class _Survey1ScreenState extends State<Survey1Screen> {
                       Container(
                         width: 2,
                         height: isMajorTick ? 30 : 15,
-                        color: isMajorTick ? Colors.black : Colors.grey,
+                        color: isMajorTick ? Colors.blue : Colors.grey, // Change to blue
                       ),
                       if (isMajorTick)
                         Text(
                           value.toStringAsFixed(0),
-                          style: TextStyle(fontSize: 12),
+                          style: TextStyle(fontSize: 12, color: Colors.blue), // Change to blue
                         ),
                     ],
                   ),
@@ -189,7 +194,7 @@ class _Survey1ScreenState extends State<Survey1Screen> {
         Icon(
           Icons.arrow_drop_down,
           size: 40,
-          color: Color(0xFF00C48C),
+          color: Colors.blue, // Change to blue
         ),
       ],
     );

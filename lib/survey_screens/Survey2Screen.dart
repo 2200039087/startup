@@ -69,16 +69,19 @@ class _Survey2ScreenState extends State<Survey2Screen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  LinearProgressIndicator(
-                    value: 0.33,
-                    backgroundColor: Colors.grey[300],
-                    color: Color(0xFF00C48C),
+                  SizedBox(
+                    height: 7, // Adjust height to decrease size
+                    child: LinearProgressIndicator(
+                      value: 0.33,
+                      backgroundColor: Colors.grey[300],
+                      color: Colors.blue, // Change to blue
+                    ),
                   ),
                   SizedBox(height: 30),
                   Text(
                     'What is your height?',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 30, // Increase font size
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
@@ -88,7 +91,7 @@ class _Survey2ScreenState extends State<Survey2Screen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       _buildToggleButton('cm', _isCm),
-                      SizedBox(width: 10),
+                      SizedBox(width: 20), // Add space between cards
                       _buildToggleButton('inches', !_isCm),
                     ],
                   ),
@@ -157,7 +160,7 @@ class _Survey2ScreenState extends State<Survey2Screen> {
                     child: Icon(
                       Icons.arrow_drop_down,
                       size: 40,
-                      color: Color(0xFF00C48C),
+                      color: Colors.blue, // Change to blue
                     ),
                   ),
                 ],
@@ -170,31 +173,25 @@ class _Survey2ScreenState extends State<Survey2Screen> {
                 bottom: MediaQuery.of(context).viewInsets.bottom + 20,
               ),
               child: SafeArea(
-                child: ElevatedButton(
+                child: ElevatedButton.icon(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => Survey3Screen()),
                     );
                   },
+                  icon: Icon(Icons.arrow_forward, color: Colors.white), // Add icon
+                  label: Text(
+                    'Continue',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF00C48C),
+                    backgroundColor: Colors.blue, // Change to blue
                     padding: EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Continue',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        ),
-                        SizedBox(width: 10),
-                        Icon(Icons.arrow_forward, color: Colors.white),
-                      ],
-                    ),
                 ),
               ),
             ),
@@ -215,10 +212,11 @@ class _Survey2ScreenState extends State<Survey2Screen> {
         });
       },
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+        width: 120, // Increase width
+        padding: EdgeInsets.symmetric(vertical: 16), // Increase padding
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isSelected ? Color(0xFF00C48C) : Colors.grey[300],
+          color: isSelected ? Colors.blue : Colors.grey[300], // Change to blue
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
