@@ -25,10 +25,13 @@ class _Survey6ScreenState extends State<Survey6Screen> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => HomeScreen()),
               );
+
+
+
             },
             child: Text(
               'Skip',
@@ -136,10 +139,13 @@ class _Survey6ScreenState extends State<Survey6Screen> {
               padding: const EdgeInsets.all(20.0),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => HomeScreen()),
                   );
+
+
+
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF00C48C),

@@ -11,149 +11,153 @@ class HomeScreen2 extends StatelessWidget {
           // Background Gradient
           Container(
             width: double.infinity,
-            height: 100, // Adjusted height for better fit
+            height: 180, // Increased height for better visibility
             decoration: BoxDecoration(
               color: Color(0xFFE4B6FF),
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(60),
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
               ),
             ),
           ),
 
           // Main Content
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 20),
-                // Greeting Section
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "HELLO,",
-                          style: GoogleFonts.plusJakartaSans(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFA100FF),
+            padding: const EdgeInsets.symmetric(horizontal: 26.0),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 50), // Increased top spacing for better visibility
+                  // Greeting Section
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "HELLO,",
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFA100FF),
+                            ),
                           ),
-                        ),
-                        Text(
-                          "PONNURI",
-                          style: GoogleFonts.plusJakartaSans(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF000000),
+                          Text(
+                            "PONNURI",
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF000000),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
+                      Icon(
+                        Icons.notifications,
+                        color: Color(0xFFA100FF),
+                        size: 28,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                  // Search Bar
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: "Search VitalStats",
+                      prefixIcon: Icon(Icons.search, color: Colors.grey, size: 20),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none,
+                      ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                     ),
-                    Icon(
-                      Icons.notifications,
-                      color: Color(0xFFA100FF),
-                      size: 24,
+                  ),
+                  SizedBox(height: 20),
+                  // Mood Section
+                  Text(
+                    "How’s your mood today?",
+                    style: GoogleFonts.plusJakartaSans(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF4E007B),
                     ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                // Search Bar
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: "Search VitalStats",
-                    prefixIcon: Icon(Icons.search, color: Colors.grey, size: 20),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide.none,
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      buildMoodButton("sad"),
+                      buildMoodButton(""),
+                      buildMoodButton(""),
+                      buildMoodButton("happy"),
+                    ],
+                  ),
+                  SizedBox(height: 15),
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: "How did your day go?",
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(vertical: 8),
                     ),
-                    contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                   ),
-                ),
-                SizedBox(height: 15),
-                // Mood Section
-                Text(
-                  "How’s your mood today?",
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF4E007B),
+                  SizedBox(height: 15),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text("Add"),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Color(0xFFA100FF),
+                    ),
                   ),
-                ),
-                SizedBox(height: 8),
-                Row(
-                  children: [
-                    buildMoodButton("sad"),
-                    buildMoodButton(""),
-                    buildMoodButton(""),
-                    buildMoodButton("happy"),
-                  ],
-                ),
-                SizedBox(height: 10),
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: "How did your day go?",
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(vertical: 8),
+                  SizedBox(height: 20),
+                  // Sleep Section
+                  Text(
+                    "Your sleep",
+                    style: GoogleFonts.plusJakartaSans(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF4E007B),
+                    ),
                   ),
-                ),
-                SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text("Add"),
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Color(0xFFA100FF),
+                  SizedBox(height: 10),
+                  buildSleepCard(),
+                  SizedBox(height: 20),
+                  // Stress Section
+                  Text(
+                    "Know your stress",
+                    style: GoogleFonts.plusJakartaSans(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF4E007B),
+                    ),
                   ),
-                ),
-                SizedBox(height: 15),
-                // Sleep Section
-                Text(
-                  "Your sleep",
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF4E007B),
+                  SizedBox(height: 10),
+                  buildStressCard(context),
+                  SizedBox(height: 20),
+                  // Activity Cards
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(child: buildActivityCard(
+                        "Stress/Anxiety relief",
+                        "For quick relief\nView more",
+                        Icons.cloud_download,
+                        Color(0xFFA100FF),
+                      )),
+                      Flexible(child: buildActivityCard(
+                        "Activity cards",
+                        "For a quick energy boost\nScratchcard",
+                        Icons.favorite,
+                        Color(0xFFA100FF),
+                      )),
+                    ],
                   ),
-                ),
-                SizedBox(height: 8),
-                buildSleepCard(),
-                SizedBox(height: 15),
-                // Stress Section
-                Text(
-                  "Know your stress",
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF4E007B),
-                  ),
-                ),
-                SizedBox(height: 8),
-                buildStressCard(context),
-                SizedBox(height: 15),
-                // Activity Cards
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(child: buildActivityCard(
-                      "Stress/Anxiety relief",
-                      "For quick relief\nView more",
-                      Icons.cloud_download,
-                      Color(0xFFA100FF),
-                    )),
-                    Flexible(child: buildActivityCard(
-                      "Activity cards",
-                      "For a quick energy boost\nScratchcard",
-                      Icons.favorite,
-                      Color(0xFFA100FF),
-                    )),
-                  ],
-                ),
-              ],
+                  SizedBox(height: 20), // Additional spacing to occupy bottom space
+                ],
+              ),
             ),
           ),
         ],
@@ -165,7 +169,7 @@ class HomeScreen2 extends StatelessWidget {
     return Expanded(
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 4),
-        padding: EdgeInsets.symmetric(vertical: 6),
+        padding: EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           gradient: mood == "happy"
               ? LinearGradient(
@@ -198,7 +202,7 @@ class HomeScreen2 extends StatelessWidget {
           child: Text(
             mood,
             style: GoogleFonts.plusJakartaSans(
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: FontWeight.bold,
               color: mood == "happy" ? Colors.white : Colors.black,
             ),
@@ -211,7 +215,7 @@ class HomeScreen2 extends StatelessWidget {
   Widget buildSleepCard() {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
@@ -247,16 +251,16 @@ class HomeScreen2 extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Light: 6hrs", style: TextStyle(fontSize: 10)),
-              Text("Deep: 3hrs", style: TextStyle(fontSize: 10)),
-              Text("REM: 3hrs", style: TextStyle(fontSize: 10)),
+              Text("Light: 6hrs", style: TextStyle(fontSize: 12)),
+              Text("Deep: 3hrs", style: TextStyle(fontSize: 12)),
+              Text("REM: 3hrs", style: TextStyle(fontSize: 12)),
             ],
           ),
-          SizedBox(height: 4),
+          SizedBox(height: 8),
           Stack(
             children: [
               Container(
-                height: 4,
+                height: 6,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.grey[300],
@@ -264,8 +268,8 @@ class HomeScreen2 extends StatelessWidget {
                 ),
               ),
               Container(
-                height: 4,
-                width: 120,
+                height: 6,
+                width: 180,
                 decoration: BoxDecoration(
                   color: Color(0xFFA100FF),
                   borderRadius: BorderRadius.circular(8),
@@ -273,11 +277,11 @@ class HomeScreen2 extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 4),
+          SizedBox(height: 8),
           Text(
             "Total sleep time: 12 hrs",
             style: GoogleFonts.plusJakartaSans(
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: FontWeight.bold,
               color: Color(0xFFA100FF),
             ),
@@ -290,7 +294,7 @@ class HomeScreen2 extends StatelessWidget {
   Widget buildStressCard(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
@@ -324,11 +328,11 @@ class HomeScreen2 extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Stress amount: Low", style: TextStyle(fontSize: 10)),
-          SizedBox(height: 4),
+          Text("Stress amount: Low", style: TextStyle(fontSize: 12)),
+          SizedBox(height: 8),
           ElevatedButton(
             onPressed: () {},
-            child: Text("Attempt this 1-minute quiz", style: TextStyle(fontSize: 10)),
+            child: Text("Attempt this 1-minute quiz", style: TextStyle(fontSize: 12)),
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
               backgroundColor: Color(0xFFA100FF),
@@ -341,7 +345,7 @@ class HomeScreen2 extends StatelessWidget {
 
   Widget buildActivityCard(String title, String subtitle, IconData icon, Color color) {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
@@ -355,20 +359,20 @@ class HomeScreen2 extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Icon(icon, color: color, size: 18),
-          SizedBox(height: 4),
+          Icon(icon, color: color, size: 20),
+          SizedBox(height: 8),
           Text(
             title,
             style: GoogleFonts.plusJakartaSans(
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 2),
+          SizedBox(height: 4),
           Text(
             subtitle,
             style: GoogleFonts.plusJakartaSans(
-              fontSize: 8,
+              fontSize: 10,
               fontWeight: FontWeight.normal,
             ),
             textAlign: TextAlign.center,

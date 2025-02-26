@@ -145,10 +145,13 @@ class _SignInScreenState extends State<SignInScreen> {
                                 // Verify the credentials
                                 if (emailController.text == storedEmail && passwordController.text == storedPassword) {
                                   // Navigate to the home screen
-                                  Navigator.pushReplacement(
+                                  Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (context) => HomeScreen()),
                                   );
+
+
+
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(content: Text('Invalid email or password')),

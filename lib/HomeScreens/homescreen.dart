@@ -147,7 +147,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
   Widget _buildHeader() {
     return Container(
       decoration: BoxDecoration(
@@ -171,14 +170,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     "HELLO, PONNURI!",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
                     "+99  •  Premium",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 10,
+                        fontSize: 14,
                         fontWeight: FontWeight.normal),
                   ),
                 ],
@@ -189,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 30),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
@@ -234,14 +233,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(width: 4),
                 Text(
                   "About You",
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
             SizedBox(height: 4),
             Text(
               "Lorem ipsum dolor amet, consectetur adipiscing elit. Vivamus habitant penatibus utrices senectus himenaeos. Libero tincidunt...",
-              style: TextStyle(color: Colors.grey[600], fontSize: 10),
+              style: TextStyle(color: Colors.grey[600], fontSize: 12),
             ),
           ],
         ),
@@ -251,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildFeatureCards(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Increased vertical padding
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10), // Increased vertical padding
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
@@ -272,9 +271,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildEditSection(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double cardWidth = (screenWidth - 60) / 3; // Adjust for smaller size
-
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Increased vertical padding
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8), // Increased vertical padding
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -282,8 +280,8 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CircularPercentIndicator(
-                radius: 45.0,
-                lineWidth: 7.0,
+                radius: 55.0,
+                lineWidth: 9.0,
                 percent: 0.89,
                 center: Text("89%",
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
@@ -293,15 +291,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _statCard("1600 Steps", Icons.directions_walk, cardWidth),
-                  SizedBox(height: 6), // Increased spacing
+                  SizedBox(height: 8), // Increased spacing
                   _statCard("200 Cal", Icons.local_fire_department, cardWidth),
-                  SizedBox(height: 6), // Increased spacing
+                  SizedBox(height: 8), // Increased spacing
                   _statCard("54 Km", Icons.map, cardWidth),
                 ],
               ),
             ],
           ),
-          SizedBox(height: 15), // Increased spacing
+          SizedBox(height: 20), // Increased spacing
           Center(
             child: ElevatedButton(
               onPressed: () {
@@ -317,7 +315,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text(
                 "Edit Goal",
                 style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
@@ -330,7 +328,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildQuickAccess() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Increased vertical padding
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10), // Increased vertical padding
       child: Column(
         children: [
           Row(
@@ -340,7 +338,7 @@ class _HomeScreenState extends State<HomeScreen> {
               _quickAccessCard("My Medication", Icons.medication),
             ],
           ),
-          SizedBox(height: 15), // Increased spacing between rows
+          SizedBox(height: 18), // Increased spacing between rows
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -371,19 +369,18 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(icon, size: 18, color: Colors.blueAccent),
-          SizedBox(width: 4),
+          SizedBox(width: 3),
           Text(title,
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
         ],
       ),
     );
   }
-
   Widget _statCard(String title, IconData icon, double width) {
     return Container(
       width: width,
-      height: 30,
-      padding: EdgeInsets.all(4),
+      height: 35,
+      padding: EdgeInsets.all(6),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -398,8 +395,8 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 16, color: Colors.blueAccent),
-          SizedBox(width: 4),
+          Icon(icon, size: 20, color: Colors.blueAccent),
+          SizedBox(width: 6),
           Text(title,
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
         ],
@@ -409,9 +406,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _quickAccessCard(String title, IconData icon) {
     return Container(
-      width: 150,
+      width: 135,
       height: 50, // Reduced height for more padding below
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(4),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(4),
