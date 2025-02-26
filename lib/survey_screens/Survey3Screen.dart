@@ -46,16 +46,19 @@ class _Survey3ScreenState extends State<Survey3Screen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                LinearProgressIndicator(
-                  value: 0.5,
-                  backgroundColor: Colors.grey[300],
-                  color: Color(0xFF00C48C),
+                SizedBox(
+                  height: 7, // Adjust height to decrease size
+                  child: LinearProgressIndicator(
+                    value: 0.5,
+                    backgroundColor: Colors.grey[300],
+                    color: Colors.blue, // Change to blue
+                  ),
                 ),
                 SizedBox(height: 30),
                 Text(
                   "What's your official blood type?",
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 30, // Increase font size
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
@@ -84,21 +87,24 @@ class _Survey3ScreenState extends State<Survey3Screen> {
                   Column(
                     children: [
                       Text(
-                        "${selectedBloodGroup ?? ''}${selectedSign ?? ''}", // Dynamically display blood group + sign
+                        selectedBloodGroup! + (selectedSign ?? ''), // Append sign if selected
                         style: TextStyle(
-                          fontSize: 64,
+                          fontSize: 128,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _buildSignButton('+'),
-                          SizedBox(width: 20),
-                          _buildSignButton('-'),
-                        ],
-                      ),
+                      SizedBox(height: 20),
+                      // Display positive or negative options
+                      if (selectedSign == null)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _buildSignButton('+'),
+                            SizedBox(width: 20),
+                            _buildSignButton('-'),
+                          ],
+                        ),
                     ],
                   ),
                 SizedBox(height: 40),
@@ -107,7 +113,7 @@ class _Survey3ScreenState extends State<Survey3Screen> {
           ),
           Padding(
             padding: const EdgeInsets.all(20.0),
-            child: ElevatedButton(
+            child: ElevatedButton.icon(
               onPressed: () {
                 if (selectedBloodGroup != null && selectedSign != null) {
                   Navigator.push(
@@ -120,23 +126,17 @@ class _Survey3ScreenState extends State<Survey3Screen> {
                   );
                 }
               },
+              icon: Icon(Icons.arrow_forward, color: Colors.white), // Add icon
+              label: Text(
+                'Continue',
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF00C48C),
+                backgroundColor: Colors.blue, // Change to blue
                 padding: EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Continue',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                  SizedBox(width: 10),
-                  Icon(Icons.arrow_forward, color: Colors.white),
-                ],
               ),
             ),
           ),
@@ -160,12 +160,12 @@ class _Survey3ScreenState extends State<Survey3Screen> {
         height: 60,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isSelected ? Color(0xFF00C48C) : Colors.grey[200],
-          borderRadius: BorderRadius.circular(30),
+          color: isSelected ? Colors.blue : Colors.grey[200], // Change to blue
+          borderRadius: BorderRadius.circular(12),
           boxShadow: isSelected
               ? [
             BoxShadow(
-              color: Colors.green.withOpacity(0.4),
+              color: Colors.blue.withOpacity(0.4),
               spreadRadius: 2,
               blurRadius: 8,
             )
@@ -194,16 +194,16 @@ class _Survey3ScreenState extends State<Survey3Screen> {
         });
       },
       child: Container(
-        width: 50,
-        height: 50,
+        width: 80,
+        height: 60,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isSelected ? Color(0xFF00C48C) : Colors.grey[200],
-          borderRadius: BorderRadius.circular(25),
+          color: isSelected ? Colors.blue : Colors.grey[200], // Change to blue
+          borderRadius: BorderRadius.circular(12),
           boxShadow: isSelected
               ? [
             BoxShadow(
-              color: Colors.green.withOpacity(0.4),
+              color: Colors.blue.withOpacity(0.4),
               spreadRadius: 2,
               blurRadius: 8,
             )
@@ -213,7 +213,7 @@ class _Survey3ScreenState extends State<Survey3Screen> {
         child: Text(
           sign,
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 28,
             fontWeight: FontWeight.bold,
             color: isSelected ? Colors.white : Colors.black,
           ),

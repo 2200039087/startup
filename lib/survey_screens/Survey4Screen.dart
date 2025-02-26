@@ -76,16 +76,19 @@ class _Survey4ScreenState extends State<Survey4Screen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                LinearProgressIndicator(
-                  value: 0.5,
-                  backgroundColor: Colors.grey[300],
-                  color: Color(0xFF00C48C),
+                SizedBox(
+                  height: 7, // Adjust height to decrease size
+                  child: LinearProgressIndicator(
+                    value: 0.5,
+                    backgroundColor: Colors.grey[300],
+                    color: Colors.blue, // Change to blue
+                  ),
                 ),
                 SizedBox(height: 30),
                 Text(
                   'What is your current profession?',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 30, // Increase font size
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
@@ -145,7 +148,7 @@ class _Survey4ScreenState extends State<Survey4Screen> {
           ),
           Padding(
             padding: const EdgeInsets.all(20.0),
-            child: ElevatedButton(
+            child: ElevatedButton.icon(
               onPressed: () {
                 if (professionController.text.isNotEmpty) {
                   Navigator.push(
@@ -159,23 +162,17 @@ class _Survey4ScreenState extends State<Survey4Screen> {
                   );
                 }
               },
+              icon: Icon(Icons.arrow_forward, color: Colors.white), // Add icon
+              label: Text(
+                'Continue',
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF00C48C),
+                backgroundColor: Colors.blue, // Change to blue
                 padding: EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Continue',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                  SizedBox(width: 10),
-                  Icon(Icons.arrow_forward, color: Colors.white),
-                ],
               ),
             ),
           ),
