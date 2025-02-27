@@ -22,6 +22,9 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -37,12 +40,12 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
           children: [
             // Padding around the Card
             Padding(
-              padding: const EdgeInsets.all(24.0), // Add padding around the card
+              padding: EdgeInsets.all(screenWidth * 0.06), // Responsive padding
               child: Center(
                 child: Container(
-                  width: 350, // Match the width from SignInScreen
-                  height: 534, // Adjusted height to fit content
-                  margin: EdgeInsets.only(top: 40), // Adjust top margin to center
+                  width: screenWidth * 0.9, // Responsive width
+                  height: screenHeight * 0.7, // Responsive height
+                  margin: EdgeInsets.only(top: screenHeight * 0.05), // Responsive top margin
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
@@ -56,7 +59,7 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                     ],
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(30.0),
+                    padding: EdgeInsets.all(screenWidth * 0.07), // Responsive padding
                     child: Form(
                       key: _formKey,
                       child: Column(
@@ -66,12 +69,12 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                             'Sign Up',
                             style: TextStyle(
                               fontFamily: 'Inter',
-                              fontSize: 29,
+                              fontSize: screenWidth * 0.07, // Responsive font size
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
                           ),
-                          SizedBox(height: 1),
+                          SizedBox(height: screenHeight * 0.01), // Responsive space
                           // Email Address Field
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,11 +83,11 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                                 'Email',
                                 style: TextStyle(
                                   fontFamily: 'Inter',
-                                  fontSize: 15,
+                                  fontSize: screenWidth * 0.04, // Responsive font size
                                   color: Colors.black,
                                 ),
                               ),
-                              SizedBox(height: 4.5),
+                              SizedBox(height: screenHeight * 0.01), // Responsive space
                               TextFormField(
                                 controller: emailController,
                                 keyboardType: TextInputType.emailAddress,
@@ -106,7 +109,7 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 4.5),
+                          SizedBox(height: screenHeight * 0.02), // Responsive space
                           // Phone Number Field
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,11 +118,11 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                                 'Phone No.',
                                 style: TextStyle(
                                   fontFamily: 'Inter',
-                                  fontSize: 15,
+                                  fontSize: screenWidth * 0.04, // Responsive font size
                                   color: Colors.black,
                                 ),
                               ),
-                              SizedBox(height: 4.5),
+                              SizedBox(height: screenHeight * 0.01), // Responsive space
                               TextFormField(
                                 controller: phoneController,
                                 keyboardType: TextInputType.phone,
@@ -141,7 +144,7 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 4.5),
+                          SizedBox(height: screenHeight * 0.02), // Responsive space
                           // Password Field
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,11 +153,11 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                                 'Password',
                                 style: TextStyle(
                                   fontFamily: 'Inter',
-                                  fontSize: 15,
+                                  fontSize: screenWidth * 0.04, // Responsive font size
                                   color: Colors.black,
                                 ),
                               ),
-                              SizedBox(height: 2),
+                              SizedBox(height: screenHeight * 0.01), // Responsive space
                               TextFormField(
                                 controller: passwordController,
                                 obscureText: !_isPasswordVisible, // Toggle password visibility
@@ -186,7 +189,7 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 4.5),
+                          SizedBox(height: screenHeight * 0.02), // Responsive space
                           // Re-Password Field
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -195,11 +198,11 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                                 'Re-Type Password',
                                 style: TextStyle(
                                   fontFamily: 'Inter',
-                                  fontSize: 15,
+                                  fontSize: screenWidth * 0.04, // Responsive font size
                                   color: Colors.black,
                                 ),
                               ),
-                              SizedBox(height: 2),
+                              SizedBox(height: screenHeight * 0.01), // Responsive space
                               TextFormField(
                                 controller: rePasswordController,
                                 obscureText: !_isRePasswordVisible, // Toggle re-password visibility
@@ -231,7 +234,7 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10.0),
+                          SizedBox(height: screenHeight * 0.03), // Responsive space
                           // Sign Up Button
                           SizedBox(
                             width: double.infinity,
@@ -252,14 +255,14 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.blue, // Blue color
-                                padding: EdgeInsets.symmetric(vertical: 8.0),
+                                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Responsive padding
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
                               child: Text(
                                 'Next',
-                                style: TextStyle(fontSize: 18, color: Colors.white),
+                                style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.white), // Responsive font size
                               ),
                             ),
                           ),
@@ -272,11 +275,11 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
             ),
             // Circular Image Placeholder for Sign Up
             Positioned(
-              top: 25,
-              left: MediaQuery.of(context).size.width / 1.15 - 73.5, // Center the image
+              top: screenHeight * 0.03, // Responsive positioning
+              left: screenWidth / 2 - (screenWidth * 0.15), // Center the image
               child: Container(
-                width: 120,
-                height: 120,
+                width: screenWidth * 0.3, // Responsive size
+                height: screenWidth * 0.3,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   shape: BoxShape.circle,

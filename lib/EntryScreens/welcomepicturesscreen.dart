@@ -30,6 +30,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -45,29 +48,32 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 children: [
                   Expanded(
                     flex: 2,
-                    child: Image.asset(page['image']!),
+                    child: Image.asset(
+                      page['image']!,
+                      fit: BoxFit.contain, // Ensure the image fits well
+                    ),
                   ),
                   Expanded(
                     flex: 2,
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: EdgeInsets.all(screenWidth * 0.04), // Responsive padding
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             page['title']!,
                             style: TextStyle(
-                              fontSize: 30,
+                              fontSize: screenWidth * 0.07, // Responsive font size
                               fontWeight: FontWeight.bold,
                               color: Colors.teal,
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          SizedBox(height: 5),
+                          SizedBox(height: screenHeight * 0.01), // Responsive spacing
                           Text(
                             page['description']!,
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: screenWidth * 0.04, // Responsive font size
                               color: Colors.grey[700],
                             ),
                             textAlign: TextAlign.center,
@@ -82,9 +88,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           // Skip and Next buttons aligned properly
           Positioned(
-            bottom: 35,
-            left: 16,
-            right: 16,
+            bottom: screenHeight * 0.04, // Responsive positioning
+            left: screenWidth * 0.04,
+            right: screenWidth * 0.04,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -101,6 +107,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     style: TextStyle(
                       color: Colors.teal,
                       fontWeight: FontWeight.bold,
+                      fontSize: screenWidth * 0.04, // Responsive font size
                     ),
                   ),
                 ),
@@ -124,6 +131,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
+                      fontSize: screenWidth * 0.04, // Responsive font size
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
@@ -138,16 +146,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           // Dots Indicator
           Positioned(
-            bottom: 60,
+            bottom: screenHeight * 0.07, // Responsive positioning
             left: 0,
             right: 0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(_pages.length, (index) {
                 return Container(
-                  width: 8.0,
-                  height: 8.0,
-                  margin: EdgeInsets.symmetric(horizontal: 4.0),
+                  width: screenWidth * 0.02, // Responsive size
+                  height: screenWidth * 0.02,
+                  margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.01),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: _currentPage == index

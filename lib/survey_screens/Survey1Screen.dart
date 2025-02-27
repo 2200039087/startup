@@ -12,6 +12,9 @@ class _Survey1ScreenState extends State<Survey1Screen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -27,7 +30,7 @@ class _Survey1ScreenState extends State<Survey1Screen> {
             },
             child: Text(
               'Skip',
-              style: TextStyle(color: Colors.grey, fontSize: 16),
+              style: TextStyle(color: Colors.grey, fontSize: screenWidth * 0.04), // Responsive font size
             ),
           ),
         ],
@@ -37,58 +40,58 @@ class _Survey1ScreenState extends State<Survey1Screen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05), // Responsive padding
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 7, // Adjust height to decrease size
+                    height: screenHeight * 0.01, // Responsive height
                     child: LinearProgressIndicator(
                       value: 0.25,
                       backgroundColor: Colors.grey[300],
                       color: Colors.blue, // Change to blue
                     ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: screenHeight * 0.03), // Responsive space
                   Text(
                     'What is your weight?',
                     style: TextStyle(
-                      fontSize: 30, // Increase font size
+                      fontSize: screenWidth * 0.07, // Responsive font size
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: screenHeight * 0.03), // Responsive space
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildToggleButton('lbs', _isLbs),
-                      SizedBox(width: 20), // Add space between cards
-                      _buildToggleButton('kgs', !_isLbs),
+                      _buildToggleButton('lbs', _isLbs, screenWidth, screenHeight),
+                      SizedBox(width: screenWidth * 0.05), // Responsive space
+                      _buildToggleButton('kgs', !_isLbs, screenWidth, screenHeight),
                     ],
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: screenHeight * 0.03), // Responsive space
                   Center(
                     child: Text(
                       '${_weight.toStringAsFixed(0)} ${_isLbs ? 'lbs' : 'kgs'}',
                       style: TextStyle(
-                        fontSize: 48,
+                        fontSize: screenWidth * 0.12, // Responsive font size
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: screenHeight * 0.02), // Responsive space
                 ],
               ),
             ),
             Expanded(
               child: Center(
-                child: _buildCustomScale(),
+                child: _buildCustomScale(screenWidth, screenHeight),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(screenWidth * 0.05), // Responsive padding
               child: ElevatedButton.icon(
                 onPressed: () {
                   Navigator.push(
@@ -99,11 +102,11 @@ class _Survey1ScreenState extends State<Survey1Screen> {
                 icon: Icon(Icons.arrow_forward, color: Colors.white), // Add icon
                 label: Text(
                   'Continue',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
+                  style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.white), // Responsive font size
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue, // Change to blue
-                  padding: EdgeInsets.symmetric(vertical: 16),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Responsive padding
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -116,7 +119,7 @@ class _Survey1ScreenState extends State<Survey1Screen> {
     );
   }
 
-  Widget _buildToggleButton(String label, bool isSelected) {
+  Widget _buildToggleButton(String label, bool isSelected, double screenWidth, double screenHeight) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -127,8 +130,8 @@ class _Survey1ScreenState extends State<Survey1Screen> {
         });
       },
       child: Container(
-        width: 120, // Increase width
-        padding: EdgeInsets.symmetric(vertical: 16), // Increase padding
+        width: screenWidth * 0.3, // Responsive width
+        padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Responsive padding
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: isSelected ? Colors.blue : Colors.grey[300], // Change to blue
@@ -145,11 +148,11 @@ class _Survey1ScreenState extends State<Survey1Screen> {
     );
   }
 
-  Widget _buildCustomScale() {
+  Widget _buildCustomScale(double screenWidth, double screenHeight) {
     return Column(
       children: [
         Container(
-          height: 150, // Adjust height to fit the design
+          height: screenHeight * 0.15, // Responsive height
           child: NotificationListener<ScrollNotification>(
             onNotification: (ScrollNotification notification) {
               if (notification is ScrollUpdateNotification) {
@@ -170,19 +173,19 @@ class _Survey1ScreenState extends State<Survey1Screen> {
                 num value = _isLbs ? 50 + index : (50 + index) / 2.20462;
                 bool isMajorTick = index % 10 == 0;
                 return Container(
-                  width: 10,
+                  width: screenWidth * 0.025, // Responsive width
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         width: 2,
-                        height: isMajorTick ? 30 : 15,
+                        height: isMajorTick ? screenHeight * 0.03 : screenHeight * 0.015, // Responsive height
                         color: isMajorTick ? Colors.blue : Colors.grey, // Change to blue
                       ),
                       if (isMajorTick)
                         Text(
                           value.toStringAsFixed(0),
-                          style: TextStyle(fontSize: 12, color: Colors.blue), // Change to blue
+                          style: TextStyle(fontSize: screenWidth * 0.03, color: Colors.blue), // Change to blue
                         ),
                     ],
                   ),
@@ -193,7 +196,7 @@ class _Survey1ScreenState extends State<Survey1Screen> {
         ),
         Icon(
           Icons.arrow_drop_down,
-          size: 40,
+          size: screenWidth * 0.1, // Responsive size
           color: Colors.blue, // Change to blue
         ),
       ],

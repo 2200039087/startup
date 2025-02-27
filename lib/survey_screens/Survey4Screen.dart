@@ -42,6 +42,9 @@ class _Survey4ScreenState extends State<Survey4Screen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -63,7 +66,7 @@ class _Survey4ScreenState extends State<Survey4Screen> {
             },
             child: Text(
               'Skip',
-              style: TextStyle(color: Colors.grey, fontSize: 16),
+              style: TextStyle(color: Colors.grey, fontSize: screenWidth * 0.04), // Responsive font size
             ),
           ),
         ],
@@ -72,35 +75,35 @@ class _Survey4ScreenState extends State<Survey4Screen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05), // Responsive padding
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 7, // Adjust height to decrease size
+                  height: screenHeight * 0.01, // Responsive height
                   child: LinearProgressIndicator(
                     value: 0.5,
                     backgroundColor: Colors.grey[300],
                     color: Colors.blue, // Change to blue
                   ),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: screenHeight * 0.03), // Responsive space
                 Text(
                   'What is your current profession?',
                   style: TextStyle(
-                    fontSize: 30, // Increase font size
+                    fontSize: screenWidth * 0.07, // Responsive font size
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: screenHeight * 0.03), // Responsive space
                 Image.asset(
                   'assets/profession_image.png', // Replace with your image path
                   width: double.infinity,
-                  height: 200,
+                  height: screenHeight * 0.2, // Responsive height
                   fit: BoxFit.contain,
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: screenHeight * 0.03), // Responsive space
                 TextFormField(
                   controller: professionController,
                   onChanged: (value) => filterProfessions(value),
@@ -127,10 +130,10 @@ class _Survey4ScreenState extends State<Survey4Screen> {
               ],
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: screenHeight * 0.02), // Responsive space
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05), // Responsive padding
               child: ListView.builder(
                 itemCount: filteredProfessions.length,
                 itemBuilder: (context, index) {
@@ -147,7 +150,7 @@ class _Survey4ScreenState extends State<Survey4Screen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(screenWidth * 0.05), // Responsive padding
             child: ElevatedButton.icon(
               onPressed: () {
                 if (professionController.text.isNotEmpty) {
@@ -165,11 +168,11 @@ class _Survey4ScreenState extends State<Survey4Screen> {
               icon: Icon(Icons.arrow_forward, color: Colors.white), // Add icon
               label: Text(
                 'Continue',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.white), // Responsive font size
               ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue, // Change to blue
-                padding: EdgeInsets.symmetric(vertical: 16),
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Responsive padding
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),

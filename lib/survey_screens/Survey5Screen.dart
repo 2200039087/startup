@@ -45,6 +45,9 @@ class _Survey5ScreenState extends State<Survey5Screen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -66,7 +69,7 @@ class _Survey5ScreenState extends State<Survey5Screen> {
             },
             child: Text(
               'Skip',
-              style: TextStyle(color: Colors.grey, fontSize: 16),
+              style: TextStyle(color: Colors.grey, fontSize: screenWidth * 0.04), // Responsive font size
             ),
           ),
         ],
@@ -75,42 +78,42 @@ class _Survey5ScreenState extends State<Survey5Screen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05), // Responsive padding
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 7, // Adjust height to decrease size
+                  height: screenHeight * 0.01, // Responsive height
                   child: LinearProgressIndicator(
                     value: 0.8,
                     backgroundColor: Colors.grey[300],
                     color: Colors.blue, // Change to blue
                   ),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: screenHeight * 0.03), // Responsive space
                 Text(
                   "Do you have any chronic diseases?",
                   style: TextStyle(
-                    fontSize: 30, // Increase font size
+                    fontSize: screenWidth * 0.07, // Responsive font size
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: screenHeight * 0.03), // Responsive space
                 Center(
                   child: Image.asset(
                     'assets/chronic_disease.png', // Ensure this path matches your asset
-                    height: 200,
+                    height: screenHeight * 0.2, // Responsive height
                     fit: BoxFit.contain,
                   ),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: screenHeight * 0.03), // Responsive space
                 TextField(
                   controller: chronicDiseaseController,
                   onChanged: (value) => filterChronicDiseases(value),
                   decoration: InputDecoration(
                     hintText: "Ex: Asthma, Obesity or 'None'",
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 16),
+                    hintStyle: TextStyle(color: Colors.grey, fontSize: screenWidth * 0.04), // Responsive font size
                     filled: true,
                     fillColor: Colors.grey[200],
                     border: OutlineInputBorder(
@@ -122,10 +125,10 @@ class _Survey5ScreenState extends State<Survey5Screen> {
               ],
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: screenHeight * 0.02), // Responsive space
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05), // Responsive padding
               child: ListView.builder(
                 itemCount: filteredChronicDiseases.length,
                 itemBuilder: (context, index) {
@@ -143,7 +146,7 @@ class _Survey5ScreenState extends State<Survey5Screen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(screenWidth * 0.05), // Responsive padding
             child: ElevatedButton.icon(
               onPressed: () {
                 if (chronicDiseaseController.text.isNotEmpty) {
@@ -161,11 +164,11 @@ class _Survey5ScreenState extends State<Survey5Screen> {
               icon: Icon(Icons.arrow_forward, color: Colors.white), // Add icon
               label: Text(
                 'Continue',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.white), // Responsive font size
               ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue, // Change to blue
-                padding: EdgeInsets.symmetric(vertical: 16),
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Responsive padding
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),

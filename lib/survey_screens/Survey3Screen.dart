@@ -12,6 +12,9 @@ class _Survey3ScreenState extends State<Survey3Screen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -33,7 +36,7 @@ class _Survey3ScreenState extends State<Survey3Screen> {
             },
             child: Text(
               'Skip',
-              style: TextStyle(color: Colors.grey, fontSize: 16),
+              style: TextStyle(color: Colors.grey, fontSize: screenWidth * 0.04), // Responsive font size
             ),
           ),
         ],
@@ -42,28 +45,28 @@ class _Survey3ScreenState extends State<Survey3Screen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05), // Responsive padding
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 7, // Adjust height to decrease size
+                  height: screenHeight * 0.01, // Responsive height
                   child: LinearProgressIndicator(
                     value: 0.5,
                     backgroundColor: Colors.grey[300],
                     color: Colors.blue, // Change to blue
                   ),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: screenHeight * 0.03), // Responsive space
                 Text(
                   "What's your official blood type?",
                   style: TextStyle(
-                    fontSize: 30, // Increase font size
+                    fontSize: screenWidth * 0.07, // Responsive font size
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: screenHeight * 0.03), // Responsive space
               ],
             ),
           ),
@@ -75,13 +78,13 @@ class _Survey3ScreenState extends State<Survey3Screen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _buildBloodGroupButton('A'),
-                    _buildBloodGroupButton('B'),
-                    _buildBloodGroupButton('AB'),
-                    _buildBloodGroupButton('O'),
+                    _buildBloodGroupButton('A', screenWidth, screenHeight),
+                    _buildBloodGroupButton('B', screenWidth, screenHeight),
+                    _buildBloodGroupButton('AB', screenWidth, screenHeight),
+                    _buildBloodGroupButton('O', screenWidth, screenHeight),
                   ],
                 ),
-                SizedBox(height: 40),
+                SizedBox(height: screenHeight * 0.04), // Responsive space
                 // Middle section: Selected blood group displayed prominently
                 if (selectedBloodGroup != null)
                   Column(
@@ -89,30 +92,30 @@ class _Survey3ScreenState extends State<Survey3Screen> {
                       Text(
                         selectedBloodGroup! + (selectedSign ?? ''), // Append sign if selected
                         style: TextStyle(
-                          fontSize: 128,
+                          fontSize: screenWidth * 0.32, // Responsive font size
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: screenHeight * 0.02), // Responsive space
                       // Display positive or negative options
                       if (selectedSign == null)
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            _buildSignButton('+'),
-                            SizedBox(width: 20),
-                            _buildSignButton('-'),
+                            _buildSignButton('+', screenWidth, screenHeight),
+                            SizedBox(width: screenWidth * 0.05), // Responsive space
+                            _buildSignButton('-', screenWidth, screenHeight),
                           ],
                         ),
                     ],
                   ),
-                SizedBox(height: 40),
+                SizedBox(height: screenHeight * 0.04), // Responsive space
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(screenWidth * 0.05), // Responsive padding
             child: ElevatedButton.icon(
               onPressed: () {
                 if (selectedBloodGroup != null && selectedSign != null) {
@@ -129,11 +132,11 @@ class _Survey3ScreenState extends State<Survey3Screen> {
               icon: Icon(Icons.arrow_forward, color: Colors.white), // Add icon
               label: Text(
                 'Continue',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.white), // Responsive font size
               ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue, // Change to blue
-                padding: EdgeInsets.symmetric(vertical: 16),
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Responsive padding
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -145,7 +148,7 @@ class _Survey3ScreenState extends State<Survey3Screen> {
     );
   }
 
-  Widget _buildBloodGroupButton(String bloodGroup) {
+  Widget _buildBloodGroupButton(String bloodGroup, double screenWidth, double screenHeight) {
     final isSelected = selectedBloodGroup == bloodGroup;
 
     return GestureDetector(
@@ -156,8 +159,8 @@ class _Survey3ScreenState extends State<Survey3Screen> {
         });
       },
       child: Container(
-        width: 60,
-        height: 60,
+        width: screenWidth * 0.15, // Responsive width
+        height: screenWidth * 0.15, // Responsive height
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: isSelected ? Colors.blue : Colors.grey[200], // Change to blue
@@ -175,7 +178,7 @@ class _Survey3ScreenState extends State<Survey3Screen> {
         child: Text(
           bloodGroup,
           style: TextStyle(
-            fontSize: 18,
+            fontSize: screenWidth * 0.045, // Responsive font size
             fontWeight: FontWeight.bold,
             color: isSelected ? Colors.white : Colors.black,
           ),
@@ -184,7 +187,7 @@ class _Survey3ScreenState extends State<Survey3Screen> {
     );
   }
 
-  Widget _buildSignButton(String sign) {
+  Widget _buildSignButton(String sign, double screenWidth, double screenHeight) {
     final isSelected = selectedSign == sign;
 
     return GestureDetector(
@@ -194,8 +197,8 @@ class _Survey3ScreenState extends State<Survey3Screen> {
         });
       },
       child: Container(
-        width: 80,
-        height: 60,
+        width: screenWidth * 0.2, // Responsive width
+        height: screenHeight * 0.075, // Responsive height
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: isSelected ? Colors.blue : Colors.grey[200], // Change to blue
@@ -213,7 +216,7 @@ class _Survey3ScreenState extends State<Survey3Screen> {
         child: Text(
           sign,
           style: TextStyle(
-            fontSize: 28,
+            fontSize: screenWidth * 0.07, // Responsive font size
             fontWeight: FontWeight.bold,
             color: isSelected ? Colors.white : Colors.black,
           ),

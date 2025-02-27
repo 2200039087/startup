@@ -36,6 +36,9 @@ class _Survey2ScreenState extends State<Survey2Screen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -55,7 +58,7 @@ class _Survey2ScreenState extends State<Survey2Screen> {
             },
             child: Text(
               'Skip',
-              style: TextStyle(color: Colors.grey, fontSize: 16),
+              style: TextStyle(color: Colors.grey, fontSize: screenWidth * 0.04), // Responsive font size
             ),
           ),
         ],
@@ -65,48 +68,48 @@ class _Survey2ScreenState extends State<Survey2Screen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05), // Responsive padding
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 7, // Adjust height to decrease size
+                    height: screenHeight * 0.01, // Responsive height
                     child: LinearProgressIndicator(
                       value: 0.33,
                       backgroundColor: Colors.grey[300],
                       color: Colors.blue, // Change to blue
                     ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: screenHeight * 0.03), // Responsive space
                   Text(
                     'What is your height?',
                     style: TextStyle(
-                      fontSize: 30, // Increase font size
+                      fontSize: screenWidth * 0.07, // Responsive font size
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: screenHeight * 0.03), // Responsive space
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildToggleButton('cm', _isCm),
-                      SizedBox(width: 20), // Add space between cards
-                      _buildToggleButton('inches', !_isCm),
+                      _buildToggleButton('cm', _isCm, screenWidth, screenHeight),
+                      SizedBox(width: screenWidth * 0.05), // Responsive space
+                      _buildToggleButton('inches', !_isCm, screenWidth, screenHeight),
                     ],
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: screenHeight * 0.03), // Responsive space
                   Center(
                     child: Text(
                       '${_height.toStringAsFixed(0)} ${_isCm ? 'cm' : 'inches'}',
                       style: TextStyle(
-                        fontSize: 48,
+                        fontSize: screenWidth * 0.12, // Responsive font size
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: screenHeight * 0.02), // Responsive space
                 ],
               ),
             ),
@@ -120,7 +123,7 @@ class _Survey2ScreenState extends State<Survey2Screen> {
                       controller: _scrollController,
                       physics: BouncingScrollPhysics(),
                       itemCount: 200,
-                      itemExtent: 32,
+                      itemExtent: screenHeight * 0.04, // Responsive item extent
                       reverse: true,
                       itemBuilder: (context, index) {
                         final value = 100 + index;
@@ -140,7 +143,7 @@ class _Survey2ScreenState extends State<Survey2Screen> {
                                 value.toString(),
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 16,
+                                  fontSize: screenWidth * 0.04, // Responsive font size
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -156,10 +159,10 @@ class _Survey2ScreenState extends State<Survey2Screen> {
                     ),
                   ),
                   Positioned(
-                    top: 150,
+                    top: screenHeight * 0.2, // Responsive positioning
                     child: Icon(
                       Icons.arrow_drop_down,
-                      size: 40,
+                      size: screenWidth * 0.1, // Responsive size
                       color: Colors.blue, // Change to blue
                     ),
                   ),
@@ -168,9 +171,9 @@ class _Survey2ScreenState extends State<Survey2Screen> {
             ),
             Padding(
               padding: EdgeInsets.only(
-                left: 20.0,
-                right: 20.0,
-                bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+                left: screenWidth * 0.05,
+                right: screenWidth * 0.05,
+                bottom: MediaQuery.of(context).viewInsets.bottom + screenHeight * 0.02,
               ),
               child: SafeArea(
                 child: ElevatedButton.icon(
@@ -183,11 +186,11 @@ class _Survey2ScreenState extends State<Survey2Screen> {
                   icon: Icon(Icons.arrow_forward, color: Colors.white), // Add icon
                   label: Text(
                     'Continue',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
+                    style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.white), // Responsive font size
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue, // Change to blue
-                    padding: EdgeInsets.symmetric(vertical: 16),
+                    padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Responsive padding
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -201,7 +204,7 @@ class _Survey2ScreenState extends State<Survey2Screen> {
     );
   }
 
-  Widget _buildToggleButton(String label, bool isSelected) {
+  Widget _buildToggleButton(String label, bool isSelected, double screenWidth, double screenHeight) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -212,8 +215,8 @@ class _Survey2ScreenState extends State<Survey2Screen> {
         });
       },
       child: Container(
-        width: 120, // Increase width
-        padding: EdgeInsets.symmetric(vertical: 16), // Increase padding
+        width: screenWidth * 0.3, // Responsive width
+        padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Responsive padding
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: isSelected ? Colors.blue : Colors.grey[300], // Change to blue

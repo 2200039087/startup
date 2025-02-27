@@ -7,6 +7,9 @@ class adhaarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -22,12 +25,12 @@ class adhaarScreen extends StatelessWidget {
           children: [
             // Card for Sign-Up Form
             Padding(
-              padding: const EdgeInsets.all(29.0), // Add padding around the card
+              padding: EdgeInsets.all(screenWidth * 0.07), // Responsive padding
               child: Center(
                 child: Container(
-                  width: 320, // Decreased width to match design
-                  height: 330, // Decreased height to match design
-                  margin: EdgeInsets.only(top: 120), // Adjust top margin to center
+                  width: screenWidth * 0.85, // Responsive width
+                  height: screenHeight * 0.4, // Responsive height
+                  margin: EdgeInsets.only(top: screenHeight * 0.15), // Responsive top margin
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(14),
@@ -41,21 +44,21 @@ class adhaarScreen extends StatelessWidget {
                     ],
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: EdgeInsets.all(screenWidth * 0.05), // Responsive padding
                     child: Column(
                       children: [
-                        SizedBox(height: 30), // Add space for the overlapping circle
+                        SizedBox(height: screenHeight * 0.03), // Responsive space
                         // Sign Up Text
                         Text(
                           'Sign Up',
                           style: TextStyle(
                             fontFamily: 'Inter',
-                            fontSize: 20,
+                            fontSize: screenWidth * 0.05, // Responsive font size
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: screenHeight * 0.02), // Responsive space
                         // Aadhaar Number Field
                         TextFormField(
                           controller: aadhaarController,
@@ -77,7 +80,7 @@ class adhaarScreen extends StatelessWidget {
                             return null;
                           },
                         ),
-                        SizedBox(height: 30),
+                        SizedBox(height: screenHeight * 0.03), // Responsive space
                         // Next Button
                         SizedBox(
                           width: double.infinity,
@@ -104,18 +107,18 @@ class adhaarScreen extends StatelessWidget {
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,
-                              padding: EdgeInsets.symmetric(vertical: 10.0),
+                              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Responsive padding
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(9),
                               ),
                             ),
                             child: Text(
                               'Next',
-                              style: TextStyle(fontSize: 18, color: Colors.white),
+                              style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.white), // Responsive font size
                             ),
                           ),
                         ),
-                        SizedBox(height: 19),
+                        SizedBox(height: screenHeight * 0.02), // Responsive space
                         // Sign In Text
                         Column(
                           children: [
@@ -124,7 +127,7 @@ class adhaarScreen extends StatelessWidget {
                               style: TextStyle(color: Colors.black87),
                               textAlign: TextAlign.center,
                             ),
-                            SizedBox(width: 6),
+                            SizedBox(height: screenHeight * 0.01), // Responsive space
                             GestureDetector(
                               onTap: () {
                                 Navigator.pop(context); // Navigate back to Sign In
@@ -148,11 +151,11 @@ class adhaarScreen extends StatelessWidget {
             ),
             // Circular Image Placeholder
             Positioned(
-              top: 100,
-              left: MediaQuery.of(context).size.width / 1.22 - 36.75, // Center the image
+              top: screenHeight * 0.12, // Responsive positioning
+              left: screenWidth / 2 - (screenWidth * 0.12), // Center the image
               child: Container(
-                width: 99.5,
-                height: 120.5,
+                width: screenWidth * 0.24, // Responsive size
+                height: screenWidth * 0.3,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   shape: BoxShape.circle,
@@ -167,7 +170,7 @@ class adhaarScreen extends StatelessWidget {
                 ),
                 child: Icon(
                   Icons.add,
-                  size: 20,
+                  size: screenWidth * 0.05, // Responsive icon size
                   color: Colors.grey[300],
                 ),
               ),
@@ -234,6 +237,9 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -249,12 +255,12 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
           children: [
             // Card for OTP Verification Form
             Padding(
-              padding: const EdgeInsets.all(35.0), // Add padding around the card
+              padding: EdgeInsets.all(screenWidth * 0.08), // Responsive padding
               child: Center(
                 child: Container(
-                  width: 320, // Decreased width to match design
-                  height: 380, // Decreased height to match design
-                  margin: EdgeInsets.only(top: 120), // Adjust top margin to center
+                  width: screenWidth * 0.85, // Responsive width
+                  height: screenHeight * 0.5, // Responsive height
+                  margin: EdgeInsets.only(top: screenHeight * 0.15), // Responsive top margin
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15),
@@ -268,38 +274,38 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                     ],
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: EdgeInsets.all(screenWidth * 0.03), // Responsive padding
                     child: Column(
                       children: [
-                        SizedBox(height: 10), // Add space for the overlapping circle
+                        SizedBox(height: screenHeight * 0.02), // Responsive space
                         // Sign Up Text
                         Text(
                           'Sign Up',
                           style: TextStyle(
                             fontFamily: 'Inter',
-                            fontSize: 20,
+                            fontSize: screenWidth * 0.05, // Responsive font size
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: screenHeight * 0.02), // Responsive space
                         // Enter OTP Text
                         Text(
                           'Enter OTP',
                           style: TextStyle(
                             fontFamily: 'Inter',
-                            fontSize: 16,
+                            fontSize: screenWidth * 0.04, // Responsive font size
                             color: Colors.black,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: screenHeight * 0.02), // Responsive space
                         // OTP Input Fields
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: List.generate(6, (index) {
                             return SizedBox(
-                              width: 40,
-                              height: 45,
+                              width: screenWidth * 0.1, // Responsive width
+                              height: screenHeight * 0.06, // Responsive height
                               child: TextFormField(
                                 controller: otpControllers[index],
                                 keyboardType: TextInputType.number,
@@ -318,7 +324,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                             );
                           }),
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: screenHeight * 0.02), // Responsive space
                         // Countdown Timer & Resend OTP
                         Center(
                           child: Column(
@@ -327,10 +333,10 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                                 "Resend OTP in $_countdown seconds",
                                 style: TextStyle(
                                   color: Colors.red,
-                                  fontSize: 14,
+                                  fontSize: screenWidth * 0.035, // Responsive font size
                                 ),
                               ),
-                              SizedBox(height: 10),
+                              SizedBox(height: screenHeight * 0.01), // Responsive space
                               TextButton(
                                 onPressed: _canResendOTP ? resendOTP : null,
                                 style: TextButton.styleFrom(
@@ -340,13 +346,13 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                                 ),
                                 child: Text(
                                   'Resend OTP',
-                                  style: TextStyle(fontSize: 16),
+                                  style: TextStyle(fontSize: screenWidth * 0.04), // Responsive font size
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: screenHeight * 0.02), // Responsive space
                         // Next Button
                         SizedBox(
                           width: double.infinity,
@@ -366,12 +372,12 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                               // If OTP is valid, proceed to the next screen
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) =>SignUp3Screen()),
+                                MaterialPageRoute(builder: (context) => SignUp3Screen()),
                               );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,
-                              padding: EdgeInsets.symmetric(vertical: 10.0),
+                              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Responsive padding
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(9),
                               ),
@@ -381,9 +387,9 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                               children: [
                                 Text(
                                   'Next',
-                                  style: TextStyle(fontSize: 18, color: Colors.white),
+                                  style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.white), // Responsive font size
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width: screenWidth * 0.025), // Responsive space
                                 Icon(
                                   Icons.arrow_forward,
                                   color: Colors.white,
@@ -401,7 +407,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                               "Have an account?",
                               style: TextStyle(color: Colors.grey[600]),
                             ),
-                            SizedBox(width: 5),
+                            SizedBox(width: screenWidth * 0.015), // Responsive space
                             GestureDetector(
                               onTap: () {
                                 Navigator.pop(context); // Navigate back to Sign In
@@ -416,7 +422,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: screenHeight * 0.02), // Responsive space
                       ],
                     ),
                   ),
@@ -425,11 +431,11 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
             ),
             // Circular Image Placeholder
             Positioned(
-              top: 100,
-              left: MediaQuery.of(context).size.width / 1.22 - 36.75, // Center the image
+              top: screenHeight * 0.12, // Responsive positioning
+              left: screenWidth / 2 - (screenWidth * 0.12), // Center the image
               child: Container(
-                width: 99.5,
-                height: 120.5,
+                width: screenWidth * 0.24, // Responsive size
+                height: screenWidth * 0.3,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   shape: BoxShape.circle,
@@ -444,7 +450,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                 ),
                 child: Icon(
                   Icons.add,
-                  size: 20,
+                  size: screenWidth * 0.05, // Responsive icon size
                   color: Colors.grey[300],
                 ),
               ),

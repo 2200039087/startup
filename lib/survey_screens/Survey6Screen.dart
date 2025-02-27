@@ -11,6 +11,9 @@ class _Survey6ScreenState extends State<Survey6Screen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -32,45 +35,45 @@ class _Survey6ScreenState extends State<Survey6Screen> {
             },
             child: Text(
               'Skip',
-              style: TextStyle(color: Colors.grey, fontSize: 16),
+              style: TextStyle(color: Colors.grey, fontSize: screenWidth * 0.04), // Responsive font size
             ),
           ),
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05), // Responsive padding
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SizedBox(
-              height: 7, // Adjust height to decrease size
+              height: screenHeight * 0.01, // Responsive height
               child: LinearProgressIndicator(
                 value: 1.0,
                 backgroundColor: Colors.grey[300],
                 color: Colors.blue, // Change to blue
               ),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: screenHeight * 0.03), // Responsive space
             Text(
               'What do you rate your movement in a day?',
               style: TextStyle(
-                fontSize: 30, // Increase font size
+                fontSize: screenWidth * 0.07, // Responsive font size
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: screenHeight * 0.03), // Responsive space
             Row(
               children: [
-                Icon(Icons.bedtime, color: Colors.grey, size: 24),
-                SizedBox(width: 10),
+                Icon(Icons.bedtime, color: Colors.grey, size: screenWidth * 0.06), // Responsive size
+                SizedBox(width: screenWidth * 0.025), // Responsive space
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Moderate',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: screenWidth * 0.04, // Responsive font size
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
@@ -78,7 +81,7 @@ class _Survey6ScreenState extends State<Survey6Screen> {
                     Text(
                       '~5-8hr daily',
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: screenWidth * 0.035, // Responsive font size
                         color: Colors.grey,
                       ),
                     ),
@@ -86,7 +89,7 @@ class _Survey6ScreenState extends State<Survey6Screen> {
                 ),
               ],
             ),
-            SizedBox(height: 40),
+            SizedBox(height: screenHeight * 0.05), // Responsive space
             Expanded(
               child: Center(
                 child: Stack(
@@ -118,13 +121,13 @@ class _Survey6ScreenState extends State<Survey6Screen> {
                       ),
                     ),
                     Positioned(
-                      top: -1, // Adjusted to display above the slider
+                      top: -screenHeight * 0.01, // Adjusted to display above the slider
                       child: Transform.rotate(
                         angle: 0.785398, // Reverse rotation to align digits with the screen
                         child: Text(
                           movementRating.toString(),
                           style: TextStyle(
-                            fontSize: 100,
+                            fontSize: screenWidth * 0.25, // Responsive font size
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
@@ -136,7 +139,7 @@ class _Survey6ScreenState extends State<Survey6Screen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(screenWidth * 0.05), // Responsive padding
               child: ElevatedButton.icon(
                 onPressed: () {
                   Navigator.pushReplacement(
@@ -147,11 +150,11 @@ class _Survey6ScreenState extends State<Survey6Screen> {
                 icon: Icon(Icons.arrow_forward, color: Colors.white), // Add icon
                 label: Text(
                   'Continue',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
+                  style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.white), // Responsive font size
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue, // Change to blue
-                  padding: EdgeInsets.symmetric(vertical: 16),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Responsive padding
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
