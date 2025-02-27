@@ -23,20 +23,28 @@ class _SignInScreenState extends State<SignInScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
+        elevation: 0, // Remove the shadow below the AppBar
+      ),
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            // Padding around the Card
+            // Card for Sign-In Form
             Padding(
-              padding: EdgeInsets.all(screenWidth * 0.06), // Responsive padding
+              padding: EdgeInsets.all(screenWidth * 0.07), // Responsive padding
               child: Center(
                 child: Container(
                   width: screenWidth * 0.85, // Responsive width
-                  height: screenHeight * 0.6, // Responsive height
+                  height: screenHeight * 0.5, // Responsive height
                   margin: EdgeInsets.only(top: screenHeight * 0.15), // Responsive top margin
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(14),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.3),
@@ -47,23 +55,23 @@ class _SignInScreenState extends State<SignInScreen> {
                     ],
                   ),
                   child: Padding(
-                    padding: EdgeInsets.all(screenWidth * 0.07), // Responsive padding
+                    padding: EdgeInsets.all(screenWidth * 0.05), // Responsive padding
                     child: Form(
                       key: _formKey,
                       child: Column(
                         children: [
-                          SizedBox(height: screenHeight * 0.01), // Responsive space
+                          SizedBox(height: screenHeight * 0.00), // Responsive space
                           // Login Text
                           Text(
                             'Login',
                             style: TextStyle(
                               fontFamily: 'Inter',
-                              fontSize: screenWidth * 0.07, // Responsive font size
+                              fontSize: screenWidth * 0.06, // Responsive font size
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
                           ),
-                          SizedBox(height: screenHeight * 0.02), // Responsive space
+                          SizedBox(height: screenHeight * 0.00), // Responsive space
                           // Gmail Label and Field
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +84,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   color: Colors.black,
                                 ),
                               ),
-                              SizedBox(height: screenHeight * 0.01), // Responsive space
+                              SizedBox(height: screenHeight * 0.001), // Responsive space
                               TextFormField(
                                 controller: emailController,
                                 keyboardType: TextInputType.emailAddress,
@@ -86,6 +94,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
+                                  prefixIcon: Icon(Icons.email),
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -98,7 +107,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: screenHeight * 0.02), // Responsive space
+                          SizedBox(height: screenHeight * 0.001), // Responsive space
                           // Password Label and Field
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +120,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   color: Colors.black,
                                 ),
                               ),
-                              SizedBox(height: screenHeight * 0.01), // Responsive space
+                              SizedBox(height: screenHeight * 0.0), // Responsive space
                               TextFormField(
                                 controller: passwordController,
                                 obscureText: !_isPasswordVisible, // Toggle password visibility
@@ -121,6 +130,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
+                                  prefixIcon: Icon(Icons.lock),
                                   suffixIcon: IconButton(
                                     icon: Icon(
                                       _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
@@ -156,7 +166,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(height: screenHeight * 0.02), // Responsive space
+                          SizedBox(height: screenHeight * 0.00), // Responsive space
                           // Sign In Button
                           SizedBox(
                             width: double.infinity,
@@ -183,19 +193,19 @@ class _SignInScreenState extends State<SignInScreen> {
                                 }
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue, // Blue color
-                                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Responsive padding
+                                backgroundColor: Colors.blue,
+                                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01), // Responsive padding
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(9),
                                 ),
                               ),
                               child: Text(
                                 'Login',
-                                style: TextStyle(fontSize: screenWidth * 0.05, color: Colors.white), // Responsive font size
+                                style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.white), // Responsive font size
                               ),
                             ),
                           ),
-                          SizedBox(height: screenHeight * 0.03), // Responsive space
+                          SizedBox(height: screenHeight * 0.01), // Responsive space
                           // Sign Up Text
                           Column(
                             children: [
@@ -232,11 +242,11 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
             // Circular Image Placeholder
             Positioned(
-              top: screenHeight * 0.1, // Responsive positioning
-              left: screenWidth / 2 - (screenWidth * 0.18), // Center the image
+              top: screenHeight * 0.113, // Responsive positioning
+              left: screenWidth / 1.9 - (screenWidth * 0.0), // Center the image
               child: Container(
-                width: screenWidth * 0.36, // Responsive size
-                height: screenWidth * 0.36,
+                width: screenWidth * 0.6, // Responsive size
+                height: screenWidth * 0.3,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   shape: BoxShape.circle,

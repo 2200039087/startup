@@ -38,17 +38,17 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            // Padding around the Card
-            Padding(
-              padding: EdgeInsets.all(screenWidth * 0.06), // Responsive padding
-              child: Center(
+            // Card for Sign-Up Form
+            Center(
+              child: Padding(
+                padding: EdgeInsets.all(screenWidth * 0.05), // Responsive padding
                 child: Container(
-                  width: screenWidth * 0.9, // Responsive width
-                  height: screenHeight * 0.7, // Responsive height
-                  margin: EdgeInsets.only(top: screenHeight * 0.05), // Responsive top margin
+                  width: screenWidth * 0.85, // Responsive width
+                  height: screenHeight * 0.70, // Responsive height
+                  margin: EdgeInsets.only(top: screenHeight * 0.1), // Responsive top margin
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(14),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.3),
@@ -59,17 +59,18 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                     ],
                   ),
                   child: Padding(
-                    padding: EdgeInsets.all(screenWidth * 0.07), // Responsive padding
+                    padding: EdgeInsets.all(screenWidth * 0.05), // Responsive padding
                     child: Form(
                       key: _formKey,
                       child: Column(
                         children: [
+                          SizedBox(height: screenHeight * 0.01), // Responsive space
                           // Sign Up Text
                           Text(
                             'Sign Up',
                             style: TextStyle(
                               fontFamily: 'Inter',
-                              fontSize: screenWidth * 0.07, // Responsive font size
+                              fontSize: screenWidth * 0.075, // Responsive font size
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
@@ -97,6 +98,11 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
+                                  prefixIcon: Icon(Icons.email),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: screenHeight * 0.01,
+                                    horizontal: screenWidth * 0.04,
+                                  ),
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -109,7 +115,7 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: screenHeight * 0.02), // Responsive space
+                          SizedBox(height: screenHeight * 0.01), // Responsive space
                           // Phone Number Field
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,6 +138,11 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
+                                  prefixIcon: Icon(Icons.phone),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: screenHeight * 0.01,
+                                    horizontal: screenWidth * 0.04,
+                                  ),
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -144,7 +155,7 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: screenHeight * 0.02), // Responsive space
+                          SizedBox(height: screenHeight * 0.01), // Responsive space
                           // Password Field
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,6 +178,7 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
+                                  prefixIcon: Icon(Icons.lock),
                                   suffixIcon: IconButton(
                                     icon: Icon(
                                       _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
@@ -176,6 +188,10 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                                         _isPasswordVisible = !_isPasswordVisible;
                                       });
                                     },
+                                  ),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: screenHeight * 0.01,
+                                    horizontal: screenWidth * 0.04,
                                   ),
                                 ),
                                 validator: (value) {
@@ -189,7 +205,7 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: screenHeight * 0.02), // Responsive space
+                          SizedBox(height: screenHeight * 0.01), // Responsive space
                           // Re-Password Field
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -212,6 +228,7 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
+                                  prefixIcon: Icon(Icons.lock),
                                   suffixIcon: IconButton(
                                     icon: Icon(
                                       _isRePasswordVisible ? Icons.visibility : Icons.visibility_off,
@@ -221,6 +238,10 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                                         _isRePasswordVisible = !_isRePasswordVisible;
                                       });
                                     },
+                                  ),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: screenHeight * 0.01,
+                                    horizontal: screenWidth * 0.04,
                                   ),
                                 ),
                                 validator: (value) {
@@ -234,7 +255,7 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: screenHeight * 0.03), // Responsive space
+                          SizedBox(height: screenHeight * 0.02), // Responsive space
                           // Sign Up Button
                           SizedBox(
                             width: double.infinity,
@@ -254,10 +275,10 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                                 }
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue, // Blue color
-                                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Responsive padding
+                                backgroundColor: Colors.blue,
+                                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01), // Responsive padding
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(9),
                                 ),
                               ),
                               child: Text(
@@ -273,13 +294,13 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                 ),
               ),
             ),
-            // Circular Image Placeholder for Sign Up
+            // Circular Image Placeholder
             Positioned(
-              top: screenHeight * 0.03, // Responsive positioning
-              left: screenWidth / 2 - (screenWidth * 0.15), // Center the image
+              top: screenHeight * 0.06, // Responsive positioning
+              left: screenWidth / 1.28 - (screenWidth * 0.3), // Center the image
               child: Container(
-                width: screenWidth * 0.3, // Responsive size
-                height: screenWidth * 0.3,
+                width: screenWidth * 0.7, // Responsive size
+                height: screenWidth * 0.33,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   shape: BoxShape.circle,

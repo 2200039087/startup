@@ -151,10 +151,10 @@ class adhaarScreen extends StatelessWidget {
             ),
             // Circular Image Placeholder
             Positioned(
-              top: screenHeight * 0.12, // Responsive positioning
-              left: screenWidth / 2 - (screenWidth * 0.12), // Center the image
+              top: screenHeight * 0.13, // Responsive positioning
+              left: screenWidth / 1.9 - (screenWidth * 0.0), // Center the image
               child: Container(
-                width: screenWidth * 0.24, // Responsive size
+                width: screenWidth * 0.6, // Responsive size
                 height: screenWidth * 0.3,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -167,11 +167,6 @@ class adhaarScreen extends StatelessWidget {
                       offset: Offset(0, 3),
                     ),
                   ],
-                ),
-                child: Icon(
-                  Icons.add,
-                  size: screenWidth * 0.05, // Responsive icon size
-                  color: Colors.grey[300],
                 ),
               ),
             ),
@@ -310,10 +305,12 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                                 controller: otpControllers[index],
                                 keyboardType: TextInputType.number,
                                 textAlign: TextAlign.center,
+                                maxLength: 1, // Limit to 1 character
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5),
                                   ),
+                                  counterText: "", // Hide the character counter
                                 ),
                                 onChanged: (value) {
                                   if (value.length == 1 && index < 5) {
@@ -431,10 +428,10 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
             ),
             // Circular Image Placeholder
             Positioned(
-              top: screenHeight * 0.12, // Responsive positioning
-              left: screenWidth / 2 - (screenWidth * 0.12), // Center the image
+              top: screenHeight * 0.15, // Responsive positioning
+              left: screenWidth / 1.9 - (screenWidth * 0.0), // Center the image
               child: Container(
-                width: screenWidth * 0.24, // Responsive size
+                width: screenWidth * 0.6, // Responsive size
                 height: screenWidth * 0.3,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -447,11 +444,6 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                       offset: Offset(0, 3),
                     ),
                   ],
-                ),
-                child: Icon(
-                  Icons.add,
-                  size: screenWidth * 0.05, // Responsive icon size
-                  color: Colors.grey[300],
                 ),
               ),
             ),
