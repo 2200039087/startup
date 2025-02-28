@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'home_screen2.dart'; // Import HomeScreen2
-import 'home_screen3.dart'; // Import HomeScreen3
+import 'home_screen2.dart';
+import 'home_screen3.dart';
+import 'package:vitalstats/MenuScreens/popup_menu_screen.dart'; // Import the new PopupMenuScreen
+import 'package:vitalstats/Camera/camera_screen.dart'; // Import the new CameraScreen
 
 void main() {
   runApp(VitalStatsApp());
@@ -25,12 +27,44 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   final PageController _pageController = PageController();
+  bool _isMenuOpen = false;
 
-  void navigateToScreen(Widget screen) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => screen),
-    );
+  void _toggleMenu() {
+    setState(() {
+      _isMenuOpen = !_isMenuOpen;
+      if (_isMenuOpen) {
+        Navigator.of(context).push(
+          PageRouteBuilder(
+            opaque: false,
+            pageBuilder: (context, animation, secondaryAnimation) => PopupMenuScreen(
+              onMenuToggle: _toggleMenu,
+            ),
+          ),
+        );
+      } else {
+        Navigator.of(context).pop();
+      }
+    });
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+      if (index == 1) {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => CameraScreen()),
+        );
+      } else if (index == 2) {
+        _toggleMenu();
+      } else {
+        _isMenuOpen = false;
+        _pageController.animateToPage(
+          0, // Always navigate to the first page for home
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
   }
 
   @override
@@ -47,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
             scrollDirection: Axis.vertical,
             onPageChanged: (index) {
               setState(() {
-                _currentIndex = index;
+                _currentIndex = 0; // Always set to home index
               });
             },
             children: [
@@ -74,10 +108,10 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Menu',
           ),
         ],
-        currentIndex: 0,
+        currentIndex: _currentIndex,
         selectedItemColor: Colors.blueAccent,
         unselectedItemColor: Colors.grey,
-        onTap: (index) {},
+        onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
         elevation: 5,
@@ -288,19 +322,19 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               CircularPercentIndicator(
                 radius: screenWidth * 0.17,
-                lineWidth: screenWidth * 0.03, // Increased line width
+                lineWidth: screenWidth * 0.03,
                 percent: 0.89,
                 center: Text(
                   "89%",
                   style: TextStyle(
                     fontSize: screenWidth * 0.09,
                     fontWeight: FontWeight.bold,
-                    color: Colors.purple, // Changed text color to purple
+                    color: Colors.purple,
                   ),
                 ),
-                circularStrokeCap: CircularStrokeCap.round, // Rounded ends
+                circularStrokeCap: CircularStrokeCap.round,
                 progressColor: Colors.blueAccent,
-                backgroundColor: Colors.blueAccent.withOpacity(0.3), // Added background color
+                backgroundColor: Colors.blueAccent.withOpacity(0.3),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -330,7 +364,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.09, vertical: screenWidth * 0.00),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.only(left: screenWidth * 0.00), // Adjust the padding value as needed
+                  padding: EdgeInsets.only(left: screenWidth * 0.00),
                   child: Text(
                     "Edit Goal",
                     style: TextStyle(

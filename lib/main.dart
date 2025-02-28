@@ -17,7 +17,7 @@ class VitalStatsApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: SignUp3Screen(),
+      home: HomeScreen(),
     );
   }
 }
