@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vitalstats/survey_screens/Survey3Screen.dart'; // Correct import
+import 'Survey3Screen.dart'; // Correct import
 
 class Survey2Screen extends StatefulWidget {
   @override

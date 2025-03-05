@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'DietScreen.dart';
+import 'recipe_finder_screen.dart'; // Ensure you import the RecipeFinderScreen
 
 class HomeScreen3 extends StatelessWidget {
   @override
@@ -83,7 +85,8 @@ class HomeScreen3 extends StatelessWidget {
                           hintText: "Search VitalStats",
                           prefixIcon: Icon(Icons.search),
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 15),
+                          contentPadding: EdgeInsets.symmetric(vertical: 4,
+                              horizontal: 15),
                         ),
                       ),
                     ),
@@ -173,7 +176,6 @@ class HomeScreen3 extends StatelessWidget {
                 child: Column(
                   children: [
                     Row(
-
                       children: [
                         Expanded(
                           child: _buildCard(
@@ -208,6 +210,7 @@ class HomeScreen3 extends StatelessWidget {
                                 ),
                               ],
                             ),
+                            context,
                           ),
                         ),
                         SizedBox(width: 18),
@@ -247,6 +250,7 @@ class HomeScreen3 extends StatelessWidget {
                                 ),
                               ],
                             ),
+                            context,
                           ),
                         ),
                       ],
@@ -264,6 +268,7 @@ class HomeScreen3 extends StatelessWidget {
                                 color: Colors.black,
                               ),
                             ),
+                            context,
                           ),
                         ),
                         SizedBox(width: 18),
@@ -282,7 +287,13 @@ class HomeScreen3 extends StatelessWidget {
                                 ),
                                 SizedBox(height: 5),
                                 ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) =>
+                                          RecipeFinderScreen()),
+                                    );
+                                  },
                                   child: Text("Find"),
                                   style: ElevatedButton.styleFrom(
                                     foregroundColor: Colors.white,
@@ -291,6 +302,7 @@ class HomeScreen3 extends StatelessWidget {
                                 ),
                               ],
                             ),
+                            context,
                           ),
                         ),
                       ],
@@ -333,7 +345,8 @@ class HomeScreen3 extends StatelessWidget {
     );
   }
 
-  Widget _buildNutrientBar(BuildContext context, String title, String value, double progress) {
+  Widget _buildNutrientBar(BuildContext context, String title, String value,
+      double progress) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -379,36 +392,47 @@ class HomeScreen3 extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(String title, Widget content) {
-    return Container(
-      width: double.infinity,
-      height: 160, // Fixed height for all cards
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.7),
-            spreadRadius: 1,
-            blurRadius: 4,
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            title,
-            style: GoogleFonts.plusJakartaSans(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFFB04200),
+  Widget _buildCard(String title, Widget content, BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        if (title == "Diet") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => DietScreen()),
+          );
+        }
+      },
+      child: Container(
+        width: double.infinity,
+        height: 160,
+        // Fixed height for all cards
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(14),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.7),
+              spreadRadius: 1,
+              blurRadius: 4,
             ),
-          ),
-          SizedBox(height: 10),
-          content,
-        ],
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              style: GoogleFonts.plusJakartaSans(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFB04200),
+              ),
+            ),
+            SizedBox(height: 10),
+            content,
+          ],
+        ),
       ),
     );
   }

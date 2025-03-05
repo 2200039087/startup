@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vitalstats/LoginScreens/adhaarscreen.dart';
-import '../HomeScreens/homescreen.dart'; // Import the Aadhaar screen
+import 'package:vitalstats/LoginScreens/RegistrationScreen/adhaarscreen.dart';
+import '../../HomeScreen1/homescreen.dart'; // Import the Aadhaar screen
 
 class SignInScreen extends StatefulWidget {
   @override

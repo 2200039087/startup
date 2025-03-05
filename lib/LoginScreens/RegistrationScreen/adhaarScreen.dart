@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:vitalstats/LoginScreens/signupscreen.dart';
+import 'package:vitalstats/LoginScreens/RegistrationScreen/signupscreen.dart';
 
 class adhaarScreen extends StatelessWidget {
   final TextEditingController aadhaarController = TextEditingController();

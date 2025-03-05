@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'home_screen2.dart';
-import 'home_screen3.dart';
-import 'package:vitalstats/MenuScreens/popup_menu_screen.dart'; // Import the new PopupMenuScreen
-import 'package:vitalstats/Camera/camera_screen.dart'; // Import the new CameraScreen
+import 'Explore/ExploreScreen.dart';
+import 'Health/heart_rate_details_screen.dart'; // Import the heart screen
+import '../HomeScreen2/home_screen2.dart';
+import '../HomeScreen3/home_screen3.dart';
+import 'Camera/camera_screen.dart';
+import 'Documents/my_documents_screen.dart';
+import 'Family/MyFamilyScreen.dart';
+import 'Medicines/my_medicines_screen.dart';
+import 'MenuScreens/popup_menu_screen.dart';
+import 'dart:ui'; // For BackdropFilter
 
 void main() {
   runApp(VitalStatsApp());
@@ -29,6 +36,127 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
   bool _isMenuOpen = false;
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
+
+
+  void _showEditGoalDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Stack(
+              children: [
+                // Blurred background
+                Positioned.fill(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 4.55, sigmaY: 4.55),
+                    child: Container(
+                      color: Colors.black.withOpacity(0.24),
+                    ),
+                  ),
+                ),
+                // Floating card
+                Center(
+                  child: Dialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Container(
+                      width: 373,
+                      height: 371,
+                      padding: EdgeInsets.all(16.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.87),
+                            blurRadius: 12.3,
+                            offset: Offset(3, 3),
+                          ),
+                          BoxShadow(
+                            color: Colors.white.withOpacity(0.4),
+                            blurRadius: 2,
+                            offset: Offset(1, 1),
+                          ),
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            blurRadius: 2,
+                            offset: Offset(-1, -1),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "Edit Goal",
+                            style: GoogleFonts.inter(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          TextField(
+                            decoration: InputDecoration(
+                              labelText: "Steps",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          TextField(
+                            decoration: InputDecoration(
+                              labelText: "No. of Calories",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          TextField(
+                            decoration: InputDecoration(
+                              labelText: "Distance",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          ElevatedButton(
+                            onPressed: () {
+                              // Handle edit goal action
+                              Navigator.of(context).pop();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xFF0078FF),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: Text("Edit"),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
   void _toggleMenu() {
     setState(() {
       _isMenuOpen = !_isMenuOpen;
@@ -47,25 +175,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-      if (index == 1) {
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => CameraScreen()),
-        );
-      } else if (index == 2) {
-        _toggleMenu();
-      } else {
-        _isMenuOpen = false;
-        _pageController.animateToPage(
-          0, // Always navigate to the first page for home
-          duration: Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-        );
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
             scrollDirection: Axis.vertical,
             onPageChanged: (index) {
               setState(() {
-                _currentIndex = 0; // Always set to home index
+                _currentIndex = index; // Update the current index
               });
             },
             children: [
@@ -111,7 +220,6 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: _currentIndex,
         selectedItemColor: Colors.blueAccent,
         unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
         elevation: 5,
@@ -172,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(height: screenHeight * 0.02),
                   _buildEditSection(context, screenWidth),
                   SizedBox(height: screenHeight * 0.02),
-                  _buildQuickAccess(screenWidth),
+                  _buildQuickAccess(context, screenWidth), // Pass context here
                 ],
               ),
             ),
@@ -297,13 +405,13 @@ class _HomeScreenState extends State<HomeScreen> {
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
-            _featureCard("My Heart", Icons.favorite, screenWidth),
+            _featureCard("My Heart", Icons.favorite, screenWidth, context),
             SizedBox(width: screenWidth * 0.03),
-            _featureCard("My SpO2", Icons.water_drop, screenWidth),
+            _featureCard("My SpO2", Icons.water_drop, screenWidth, context),
             SizedBox(width: screenWidth * 0.03),
-            _featureCard("My Hydration", Icons.local_drink, screenWidth),
+            _featureCard("My Hydration", Icons.local_drink, screenWidth, context),
             SizedBox(width: screenWidth * 0.03),
-            _featureCard("My Glucose", Icons.bloodtype, screenWidth),
+            _featureCard("My Glucose", Icons.bloodtype, screenWidth, context),
           ],
         ),
       ),
@@ -353,9 +461,7 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               ElevatedButton(
-                onPressed: () {
-                  // Add your logic for editing goal
-                },
+                onPressed: _showEditGoalDialog, // Connect the button to the function
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blueAccent,
                   shape: RoundedRectangleBorder(
@@ -382,7 +488,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildQuickAccess(double screenWidth) {
+  Widget _buildQuickAccess(BuildContext context, double screenWidth) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06, vertical: screenWidth * 0.025),
       child: Column(
@@ -390,16 +496,16 @@ class _HomeScreenState extends State<HomeScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _quickAccessCard("My Family", Icons.group, screenWidth),
-              _quickAccessCard("My Medication", Icons.medication, screenWidth),
+              _quickAccessCard(context, "My Family", Icons.group, screenWidth),
+              _quickAccessCard(context, "My Medication", Icons.medication, screenWidth),
             ],
           ),
           SizedBox(height: screenWidth * 0.045),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _quickAccessCard("My Documents", Icons.file_copy, screenWidth),
-              _quickAccessCard("Explore", Icons.explore, screenWidth),
+              _quickAccessCard(context, "My Documents", Icons.file_copy, screenWidth),
+              _quickAccessCard(context, "Explore", Icons.explore, screenWidth),
             ],
           ),
         ],
@@ -407,28 +513,39 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _featureCard(String title, IconData icon, double screenWidth) {
-    return Container(
-      width: screenWidth * 0.25,
-      height: screenWidth * 0.125,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(6),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 4,
-            spreadRadius: 1,
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, size: screenWidth * 0.045, color: Colors.blueAccent),
-          SizedBox(width: screenWidth * 0.0075),
-          Text(title, style: TextStyle(fontSize: screenWidth * 0.03, fontWeight: FontWeight.bold)),
-        ],
+  Widget _featureCard(String title, IconData icon, double screenWidth, BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        if (title == "My Heart") {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => HeartRateDetailsScreen()),
+          ).then((value) {
+            print("Navigated to HeartRateDetailsScreen");
+          });
+        }
+      },
+      child: Container(
+        width: screenWidth * 0.25,
+        height: screenWidth * 0.125,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 4,
+              spreadRadius: 1,
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: screenWidth * 0.045, color: Colors.blueAccent),
+            SizedBox(width: screenWidth * 0.0075),
+            Text(title, style: TextStyle(fontSize: screenWidth * 0.03, fontWeight: FontWeight.bold)),
+          ],
+        ),
       ),
     );
   }
@@ -460,35 +577,62 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _quickAccessCard(String title, IconData icon, double screenWidth) {
-    return Container(
-      width: screenWidth * 0.38,
-      height: screenWidth * 0.130,
-      padding: EdgeInsets.all(screenWidth * 0.02),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(4),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 7,
-            spreadRadius: 4,
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, size: screenWidth * 0.060, color: Colors.blueAccent),
-          SizedBox(width: screenWidth * 0.02),
-          Expanded(
-            child: Text(
-              title,
-              style: TextStyle(fontSize: screenWidth * 0.03, fontWeight: FontWeight.bold),
-              overflow: TextOverflow.ellipsis,
+  Widget _quickAccessCard(BuildContext context, String title, IconData icon, double screenWidth) {
+    return GestureDetector(
+      onTap: () {
+        switch (title) {
+          case "My Family":
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => MyFamilyScreen()),
+            );
+            break;
+          case "My Medication":
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => MyMedicinesScreen()),
+            );
+            break;
+          case "My Documents":
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => MyDocumentsScreen())
+            );
+            break;
+          case "Explore":
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => ExploreScreen())
+            );
+            // Add navigation for Explore if needed
+            break;
+        }
+      },
+      child: Container(
+        width: screenWidth * 0.38,
+        height: screenWidth * 0.130,
+        padding: EdgeInsets.all(screenWidth * 0.02),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(4),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 7,
+              spreadRadius: 4,
             ),
-          ),
-        ],
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: screenWidth * 0.060, color: Colors.blueAccent),
+            SizedBox(width: screenWidth * 0.02),
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(fontSize: screenWidth * 0.03, fontWeight: FontWeight.bold),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

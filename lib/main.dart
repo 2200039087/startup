@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vitalstats/HomeScreens/homescreen.dart';
-import 'EntryScreens/welcomepicturesscreen.dart';
-import 'HomeScreens/home_screen2.dart';
-import 'LoginScreens/signupscreen.dart';
-
+import 'package:vitalstats/HomeScreen1/homescreen.dart';
 void main() {
   runApp(VitalStatsApp());
 }
@@ -17,7 +13,7 @@ class VitalStatsApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: OnboardingScreen(),
+      home: HomeScreen(),
     );
   }
 }

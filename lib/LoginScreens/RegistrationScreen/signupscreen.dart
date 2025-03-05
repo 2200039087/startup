@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vitalstats/HomeScreens/homescreen.dart';
-import 'package:vitalstats/survey_screens/Survey1Screen.dart';
+import 'package:vitalstats/LoginScreens/survey_screens/Survey1Screen.dart';
+
 
 class SignUp3Screen extends StatefulWidget {
   @override

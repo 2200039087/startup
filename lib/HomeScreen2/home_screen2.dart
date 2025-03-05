@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'SleepScreen.dart';
+import 'mood_screen.dart';
+import 'stress_screen.dart';
+import 'stress_relief_screen.dart';
 
 class HomeScreen2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFFFFF), // Background color from the design
+      backgroundColor: Color(0xFFFFFFFF),
       body: SafeArea(
         child: Stack(
           children: [
-            // Background Gradient
             Container(
               width: double.infinity,
-              height: 150, // Increased height for better visibility
+              height: 150,
               decoration: BoxDecoration(
                 color: Color(0xFFE4B6FF),
                 borderRadius: BorderRadius.only(
@@ -21,16 +24,13 @@ class HomeScreen2 extends StatelessWidget {
                 ),
               ),
             ),
-
-            // Main Content
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20), // Increased top spacing for better visibility
-                    // Greeting Section
+                    SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -63,7 +63,6 @@ class HomeScreen2 extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 10),
-                    // Search Bar
                     TextField(
                       decoration: InputDecoration(
                         hintText: "Search VitalStats",
@@ -78,13 +77,20 @@ class HomeScreen2 extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 25),
-                    // Mood Section
-                    Text(
-                      "How’s your mood today?",
-                      style: GoogleFonts.plusJakartaSans(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF4E007B),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MoodScreen()),
+                        );
+                      },
+                      child: Text(
+                        "How’s your mood today?",
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF4E007B),
+                        ),
                       ),
                     ),
                     SizedBox(height: 10),
@@ -114,41 +120,62 @@ class HomeScreen2 extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10),
-                    // Sleep Section
-                    Text(
-                      "Your sleep",
-                      style: GoogleFonts.plusJakartaSans(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF4E007B),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SleepScreen()),
+                        );
+                      },
+                      child: Text(
+                        "Your sleep",
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF4E007B),
+                        ),
                       ),
                     ),
                     SizedBox(height: 8),
                     buildSleepCard(),
                     SizedBox(height: 15),
-                    // Stress Section
-                    Text(
-                      "Know your stress",
-                      style: GoogleFonts.plusJakartaSans(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF4E007B),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => StressScreen()),
+                        );
+                      },
+                      child: Text(
+                        "Know your stress",
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF4E007B),
+                        ),
                       ),
                     ),
                     SizedBox(height: 5),
                     buildStressCard(context),
                     SizedBox(height: 10),
-                    // Activity Cards
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        buildActivityCard(
-                          "Stress/Anxiety relief",
-                          "For quick relief\nView more",
-                          Icons.cloud_download,
-                          Color(0xFFA100FF),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => StressReliefScreen()),
+                            );
+                          },
+                          child: buildActivityCard(
+                            "Stress/Anxiety relief",
+                            "For quick relief\nView more",
+                            Icons.cloud_download,
+                            Color(0xFFA100FF),
+                          ),
                         ),
-                        SizedBox(width: 10), // Add padding between the cards
+                        SizedBox(width: 10),
                         buildActivityCard(
                           "Activity cards",
                           "For a quick energy boost\nScratchcard",
@@ -157,7 +184,7 @@ class HomeScreen2 extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 15), // Additional spacing to occupy bottom space
+                    SizedBox(height: 15),
                   ],
                 ),
               ),
