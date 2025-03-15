@@ -36,13 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
   bool _isMenuOpen = false;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-
-
   void _showEditGoalDialog() {
     showDialog(
       context: context,
@@ -175,6 +168,25 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+      if (index == 1) {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => CameraScreen()),
+        );
+      } else if (index == 2) {
+        _toggleMenu();
+      } else {
+        _isMenuOpen = false;
+        _pageController.animateToPage(
+          0, // Always navigate to the first page for home
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -220,6 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: _currentIndex,
         selectedItemColor: Colors.blueAccent,
         unselectedItemColor: Colors.grey,
+        onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
         elevation: 5,
