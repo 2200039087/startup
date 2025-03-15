@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vitalstats/LoginScreens/survey_screens/Survey1Screen.dart';
 
-
 class SignUp3Screen extends StatefulWidget {
   @override
   _SignUp3ScreenState createState() => _SignUp3ScreenState();
@@ -12,7 +11,6 @@ class SignUp3Screen extends StatefulWidget {
 class _SignUp3ScreenState extends State<SignUp3Screen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController rePasswordController = TextEditingController();
@@ -44,7 +42,7 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                 padding: EdgeInsets.all(screenWidth * 0.05), // Responsive padding
                 child: Container(
                   width: screenWidth * 0.85, // Responsive width
-                  height: screenHeight * 0.70, // Responsive height
+                  height: screenHeight * 0.60, // Adjusted height
                   margin: EdgeInsets.only(top: screenHeight * 0.1), // Responsive top margin
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -74,46 +72,6 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
-                          ),
-                          SizedBox(height: screenHeight * 0.01), // Responsive space
-                          // Email Address Field
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Email',
-                                style: TextStyle(
-                                  fontFamily: 'Inter',
-                                  fontSize: screenWidth * 0.04, // Responsive font size
-                                  color: Colors.black,
-                                ),
-                              ),
-                              SizedBox(height: screenHeight * 0.01), // Responsive space
-                              TextFormField(
-                                controller: emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  prefixIcon: Icon(Icons.email),
-                                  contentPadding: EdgeInsets.symmetric(
-                                    vertical: screenHeight * 0.01,
-                                    horizontal: screenWidth * 0.04,
-                                  ),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Email is required';
-                                  } else if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(value)) {
-                                    return 'Enter a valid email address';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ],
                           ),
                           SizedBox(height: screenHeight * 0.01), // Responsive space
                           // Phone Number Field
@@ -264,7 +222,7 @@ class _SignUp3ScreenState extends State<SignUp3Screen> {
                                 if (_formKey.currentState!.validate()) {
                                   // Store the data locally
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
-                                  await prefs.setString('email', emailController.text);
+                                  await prefs.setString('phone', phoneController.text);
                                   await prefs.setString('password', passwordController.text);
 
                                   // Navigate to Survey1Screen

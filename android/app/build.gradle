@@ -8,7 +8,8 @@ plugins {
 android {
     namespace = "com.klu.vitalstats"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "29.0.13113456"
+
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -17,6 +18,9 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
+    }
+    ext {
+        mobileScannerNamespace = 'com.example.mobile_scanner' // Plugin namespace
     }
 
     defaultConfig {

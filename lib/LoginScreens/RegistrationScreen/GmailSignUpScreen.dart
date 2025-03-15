@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:vitalstats/LoginScreens/RegistrationScreen/signupscreen.dart';
 
-class adhaarScreen extends StatelessWidget {
-  final TextEditingController aadhaarController = TextEditingController();
+class GmailSignUpScreen extends StatelessWidget {
+  final TextEditingController gmailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class adhaarScreen extends StatelessWidget {
               child: Center(
                 child: Container(
                   width: screenWidth * 0.85, // Responsive width
-                  height: screenHeight * 0.4, // Responsive height
+                  height: screenHeight * 0.40, // Adjusted height
                   margin: EdgeInsets.only(top: screenHeight * 0.15), // Responsive top margin
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -59,23 +59,23 @@ class adhaarScreen extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: screenHeight * 0.02), // Responsive space
-                        // Aadhaar Number Field
+                        // Gmail Input Field
                         TextFormField(
-                          controller: aadhaarController,
-                          keyboardType: TextInputType.number,
+                          controller: gmailController,
+                          keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
-                            labelText: 'Aadhaar Number',
-                            hintText: 'xxxx xxxx xxxx',
+                            labelText: 'Gmail',
+                            hintText: 'example@gmail.com',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            prefixIcon: Icon(Icons.credit_card),
+                            prefixIcon: Icon(Icons.email),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Aadhaar Number is required';
-                            } else if (value.length != 12 || !RegExp(r'^\d{12}$').hasMatch(value)) {
-                              return 'Enter a valid Aadhaar number';
+                              return 'Gmail is required';
+                            } else if (!RegExp(r'^[\w-]+(\.[\w-]+)*@gmail\.com$').hasMatch(value)) {
+                              return 'Enter a valid Gmail address';
                             }
                             return null;
                           },
@@ -86,20 +86,24 @@ class adhaarScreen extends StatelessWidget {
                           width: double.infinity,
                           child: ElevatedButton(
                             onPressed: () {
-                              // Validate Aadhaar Number
-                              String aadhaar = aadhaarController.text.trim();
-                              if (aadhaar.isEmpty ||
-                                  aadhaar.length != 12 ||
-                                  !RegExp(r'^\d{12}$').hasMatch(aadhaar)) {
+                              // Validate Gmail
+                              String gmail = gmailController.text.trim();
+                              if (gmail.isEmpty ||
+                                  !RegExp(r'^[\w-]+(\.[\w-]+)*@gmail\.com$').hasMatch(gmail)) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    content: Text('Please enter a valid Aadhaar number'),
+                                    content: Text('Please enter a valid Gmail address'),
                                   ),
                                 );
                                 return;
                               }
 
-                              // Navigate to OTP Screen
+                              // Simulate sending OTP
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('OTP sent to $gmail')),
+                              );
+
+                              // Navigate to OTP Verification Screen
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => OTPVerificationScreen()),
@@ -118,6 +122,8 @@ class adhaarScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                        SizedBox(height: screenHeight * 0.02), // Responsive space
+                        // Google Icon
                         SizedBox(height: screenHeight * 0.02), // Responsive space
                         // Sign In Text
                         Column(

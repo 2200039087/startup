@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:expandable_fab_lite/expandable_fab_lite.dart';
+import 'Camera/FileUploaderScreen.dart';
+import 'Camera/ScannerScreen.dart';
 import 'Explore/ExploreScreen.dart';
 import 'Health/heart_rate_details_screen.dart'; // Import the heart screen
 import '../HomeScreen2/home_screen2.dart';
 import '../HomeScreen3/home_screen3.dart';
-import 'Camera/camera_screen.dart';
+import 'Camera/CameraScreen.dart';
 import 'Documents/my_documents_screen.dart';
 import 'Family/MyFamilyScreen.dart';
 import 'Medicines/my_medicines_screen.dart';
@@ -21,6 +24,9 @@ class VitalStatsApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Color(0xFFAAD2FF), // Set the primary color for the theme
+      ),
       home: HomeScreen(),
     );
   }
@@ -33,9 +39,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+  int _navBarIndex = 0; // Separate index for the BottomNavigationBar
   final PageController _pageController = PageController();
   bool _isMenuOpen = false;
 
+<<<<<<< HEAD
+=======
+  @override
+  void initState() {
+    super.initState();
+  }
+
+>>>>>>> e77eebdb63288422172d5d7f9d6cf4e202c790a0
   void _showEditGoalDialog() {
     showDialog(
       context: context,
@@ -168,6 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+<<<<<<< HEAD
   void _onItemTapped(int index) {
     setState(() {
       _currentIndex = index;
@@ -188,6 +204,8 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+=======
+>>>>>>> e77eebdb63288422172d5d7f9d6cf4e202c790a0
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -215,27 +233,77 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.camera_alt),
-            label: 'Camera',
+            icon: Icon(null), // Empty icon for the center
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu),
             label: 'Menu',
           ),
         ],
-        currentIndex: _currentIndex,
+        currentIndex: _navBarIndex,
         selectedItemColor: Colors.blueAccent,
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
         elevation: 5,
+        onTap: (index) {
+          if (index == 1) {
+            // Handle the center button tap
+          } else if (index == 2) {
+            // Handle the menu button tap
+            _toggleMenu();
+          } else {
+            setState(() {
+              _navBarIndex = index;
+              _pageController.animateToPage(
+                index,
+                duration: Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+            });
+          }
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: ExpandableFab(
+        fabMargin: 8,
+        children: [
+          ActionButton(
+            icon: const Icon(Icons.qr_code_scanner, color: Colors.white),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => ScannerScreen()),
+              );
+              // Handle scanner action
+            },
+          ),
+          ActionButton(
+            icon: const Icon(Icons.camera_alt, color: Colors.white),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => CameraScreen()),
+              );
+              // Handle camera action
+            },
+          ),
+          ActionButton(
+            icon: const Icon(Icons.file_upload, color: Colors.white),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => FileUploaderScreen()),
+              );
+              // Handle file upload action
+            },
+          ),
+        ],
       ),
     );
   }
@@ -470,32 +538,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           SizedBox(height: screenWidth * 0.00),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                onPressed: _showEditGoalDialog, // Connect the button to the function
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.09, vertical: screenWidth * 0.00),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(left: screenWidth * 0.00),
-                  child: Text(
-                    "Edit Goal",
-                    style: TextStyle(
-                      fontSize: screenWidth * 0.035,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
         ],
       ),
     );
