@@ -63,7 +63,7 @@ class _MyFamilyScreenState extends State<MyFamilyScreen> {
                 ),
                 child: Container(
                   width: 350,
-                  padding: EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10.0),
@@ -511,8 +511,8 @@ class _MyFamilyScreenState extends State<MyFamilyScreen> {
 
   Widget _buildFamilyMemberCard(BuildContext context, Map<String, dynamic> member, int index) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 5.0),
-      padding: EdgeInsets.all(8.0),
+      margin: EdgeInsets.symmetric(vertical: 9.0),
+      padding: EdgeInsets.all(3.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
@@ -545,10 +545,10 @@ class _MyFamilyScreenState extends State<MyFamilyScreen> {
           Row(
             children: [
               CircleAvatar(
-                radius: 20,
+                radius: 18,
                 backgroundColor: Colors.grey[300],
               ),
-              SizedBox(width: 5),
+              SizedBox(width: 2.5),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -561,7 +561,7 @@ class _MyFamilyScreenState extends State<MyFamilyScreen> {
                         color: Color(0xFF0078FF),
                       ),
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(height: 1),
                     Row(
                       children: [
                         Text(
@@ -571,7 +571,7 @@ class _MyFamilyScreenState extends State<MyFamilyScreen> {
                             color: Color(0xFF044997),
                           ),
                         ),
-                        SizedBox(width: 10),
+                        SizedBox(width: 4),
                         Text(
                           'Relation: ${member['relation']}',
                           style: GoogleFonts.plusJakartaSans(
@@ -593,7 +593,7 @@ class _MyFamilyScreenState extends State<MyFamilyScreen> {
             ],
           ),
           if (index < familyMembers.length - 1)
-            Divider(thickness: 1, color: Colors.grey[300]),
+            Divider(thickness: 2, color: Colors.grey[300]),
         ],
       ),
     );

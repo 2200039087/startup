@@ -149,9 +149,6 @@ class _Survey6ScreenState extends State<Survey6Screen> {
                     context,
                     MaterialPageRoute(builder: (context) => HomeScreen()),
                   );
-
-
-
                 },
                 icon: Icon(Icons.arrow_forward, color: Colors.white), // Add icon
                 label: Text(
