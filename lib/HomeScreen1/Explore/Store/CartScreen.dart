@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'CartScreen.dart'; // Ensure you have this screen implemented
-import 'ProductDetailScreen.dart'; // Ensure you have this screen implemented
 
-class StoreScreen extends StatefulWidget {
+class CartScreen extends StatefulWidget {
+  final List<Map<String, String>> cartItems;
+
+  CartScreen({required this.cartItems});
+
   @override
-  _StoreScreenState createState() => _StoreScreenState();
+  _CartScreenState createState() => _CartScreenState();
 }
 
-class _StoreScreenState extends State<StoreScreen> {
-  List<Map<String, String>> cartItems = [];
-
-  void addToCart(String name, String price, String qty) {
-    setState(() {
-      cartItems.add({'name': name, 'price': price, 'qty': qty});
-    });
-  }
-
+class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,12 +23,11 @@ class _StoreScreenState extends State<StoreScreen> {
             left: 0,
             right: 0,
             child: Container(
-              height: 152,
+              height: 132,
               decoration: BoxDecoration(
                 color: Color(0xFFAAD2FF),
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30)
+                  bottomLeft: Radius.circular(60),
                 ),
               ),
               child: Stack(
@@ -51,22 +44,22 @@ class _StoreScreenState extends State<StoreScreen> {
                         width: 38,
                         height: 38,
                         decoration: BoxDecoration(
-                          color: Color(0xFFAAD2FF),
-                          borderRadius: BorderRadius.circular(0),
+                          color: Color(0xFF0078FF),
+                          borderRadius: BorderRadius.circular(5),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.white.withOpacity(0),
+                              color: Colors.white.withOpacity(0.4),
                               offset: Offset(1, 1),
                               blurRadius: 2,
                             ),
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0),
+                              color: Colors.grey.withOpacity(0.5),
                               offset: Offset(-1, -1),
                               blurRadius: 2,
                             ),
                           ],
                         ),
-                        child: Icon(Icons.arrow_back, color: Colors.black),
+                        child: Icon(Icons.arrow_back, color: Colors.white),
                       ),
                     ),
                   ),
@@ -77,7 +70,7 @@ class _StoreScreenState extends State<StoreScreen> {
                     top: 60,
                     child: Center(
                       child: Text(
-                        "Store",
+                        "Cart",
                         style: GoogleFonts.plusJakartaSans(
                           fontSize: 32,
                           fontWeight: FontWeight.w700,
@@ -92,7 +85,7 @@ class _StoreScreenState extends State<StoreScreen> {
           ),
           // Body Section
           Positioned(
-            top: 152,
+            top: 182,
             left: 0,
             right: 0,
             bottom: 0,
@@ -115,34 +108,20 @@ class _StoreScreenState extends State<StoreScreen> {
                     // Search Bar
                     _buildSearchBar(context),
                     SizedBox(height: 20),
-                    // Product Cards
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProductDetailScreen(
-                              addToCart: addToCart,
-                              cartItems: cartItems,
-                            ),
-                          ),
-                        );
-                      },
-                      child: _buildProductCard(context, "Name", "₹100/kg", "1 item"),
-                    ),
+                    // Cart Items
+                    ...widget.cartItems.map((item) => _buildCartItem(context, item['name']!, item['price']!, item['qty']!)).toList(),
                     SizedBox(height: 20),
-                    _buildProductCard(context, "", "", ""),
-                    SizedBox(height: 20),
-                    _buildProductCard(context, "", "", ""),
-                    SizedBox(height: 20),
-                    _buildProductCard(context, "", "", ""),
-                    SizedBox(height: 20),
-                    // Checkout Button
-                    _buildCheckoutButton(context),
                   ],
                 ),
               ),
             ),
+          ),
+          // Checkout Button
+          Positioned(
+            bottom: 16,
+            left: 16,
+            right: 16,
+            child: _buildCheckoutButton(context),
           ),
         ],
       ),
@@ -181,7 +160,7 @@ class _StoreScreenState extends State<StoreScreen> {
       ),
       child: TextField(
         decoration: InputDecoration(
-          hintText: "Search Store",
+          hintText: "Search Cart",
           border: InputBorder.none,
           prefixIcon: Icon(Icons.search, color: Colors.grey),
         ),
@@ -189,7 +168,7 @@ class _StoreScreenState extends State<StoreScreen> {
     );
   }
 
-  Widget _buildProductCard(BuildContext context, String name, String price, String qty) {
+  Widget _buildCartItem(BuildContext context, String name, String price, String qty) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -249,7 +228,7 @@ class _StoreScreenState extends State<StoreScreen> {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    price,
+                    '$price - Price',
                     style: GoogleFonts.plusJakartaSans(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -257,12 +236,53 @@ class _StoreScreenState extends State<StoreScreen> {
                     ),
                   ),
                   Text(
-                    qty,
+                    '$qty - Qty',
                     style: GoogleFonts.plusJakartaSans(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: Color(0xFF0078FF),
                     ),
+                  ),
+                  Spacer(),
+                  // Quantity Control
+                  Row(
+                    children: [
+                      _buildQuantityButton('-'),
+                      SizedBox(width: 10),
+                      Text(
+                        qty,
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      _buildQuantityButton('+'),
+                      Spacer(),
+                      // Remove Button
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            widget.cartItems.removeWhere((item) => item['name'] == name);
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF0078FF),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
+                        child: Text(
+                          "Remove",
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -276,12 +296,7 @@ class _StoreScreenState extends State<StoreScreen> {
   Widget _buildCheckoutButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CartScreen(cartItems: cartItems),
-          ),
-        );
+        _showCheckoutDialog(context);
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: Color(0xFF0078FF),
@@ -296,6 +311,93 @@ class _StoreScreenState extends State<StoreScreen> {
           fontSize: 20,
           fontWeight: FontWeight.w700,
           color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  void _showCheckoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.check_circle,
+                color: Colors.green,
+                size: 50,
+              ),
+              SizedBox(height: 20),
+              Text(
+                "Your product has been checked out!",
+                style: GoogleFonts.plusJakartaSans(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                "OK",
+                style: GoogleFonts.plusJakartaSans(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF0078FF),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildQuantityButton(String label) {
+    return Container(
+      width: 33,
+      height: 26,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(5),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.89),
+            offset: Offset(-5, -5),
+            blurRadius: 14.8,
+          ),
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.87),
+            offset: Offset(3, 3),
+            blurRadius: 12.3,
+          ),
+          BoxShadow(
+            color: Colors.white.withOpacity(0.4),
+            offset: Offset(1, 1),
+            blurRadius: 2,
+          ),
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            offset: Offset(-1, -1),
+            blurRadius: 2,
+          ),
+        ],
+      ),
+      child: Center(
+        child: Text(
+          label,
+          style: GoogleFonts.plusJakartaSans(
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+            color: Colors.black,
+          ),
         ),
       ),
     );

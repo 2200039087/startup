@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../HomeScreen1/homescreen.dart';
+import 'countdown_screen.dart';
 
 class Survey6Screen extends StatefulWidget {
   @override
@@ -32,9 +33,6 @@ class _Survey6ScreenState extends State<Survey6Screen> {
                 context,
                 MaterialPageRoute(builder: (context) => HomeScreen()),
               );
-
-
-
             },
             child: Text(
               'Skip',
@@ -147,22 +145,23 @@ class _Survey6ScreenState extends State<Survey6Screen> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                    MaterialPageRoute(builder: (context) => CountdownScreen()),
                   );
                 },
-                icon: Icon(Icons.arrow_forward, color: Colors.white), // Add icon
+                icon: Icon(Icons.arrow_forward, color: Colors.white),
                 label: Text(
                   'Continue',
-                  style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.white), // Responsive font size
+                  style: TextStyle(fontSize: screenWidth * 0.045, color: Colors.white),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue, // Change to blue
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Responsive padding
+                  backgroundColor: Colors.blue,
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
               ),
+
             ),
           ],
         ),

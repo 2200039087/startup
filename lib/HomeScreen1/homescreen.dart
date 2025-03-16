@@ -5,12 +5,16 @@ import 'package:expandable_fab_lite/expandable_fab_lite.dart';
 import 'Camera/FileUploaderScreen.dart';
 import 'Camera/ScannerScreen.dart';
 import 'Explore/ExploreScreen.dart';
+import 'Health/SpeedMeterScreen.dart';
+import 'Health/glucose_details_screen.dart';
 import 'Health/heart_rate_details_screen.dart'; // Import the heart screen
 import '../HomeScreen2/home_screen2.dart';
 import '../HomeScreen3/home_screen3.dart';
 import 'Camera/CameraScreen.dart';
 import 'Documents/my_documents_screen.dart';
 import 'Family/MyFamilyScreen.dart';
+import 'Health/spo2_details_screen.dart';
+import 'Health/water_details_screen.dart';
 import 'Medicines/my_medicines_screen.dart';
 import 'MenuScreens/popup_menu_screen.dart';
 import 'dart:ui'; // For BackdropFilter
@@ -43,14 +47,11 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
   bool _isMenuOpen = false;
 
-<<<<<<< HEAD
-=======
   @override
   void initState() {
     super.initState();
   }
 
->>>>>>> e77eebdb63288422172d5d7f9d6cf4e202c790a0
   void _showEditGoalDialog() {
     showDialog(
       context: context,
@@ -183,7 +184,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-<<<<<<< HEAD
   void _onItemTapped(int index) {
     setState(() {
       _currentIndex = index;
@@ -204,8 +204,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-=======
->>>>>>> e77eebdb63288422172d5d7f9d6cf4e202c790a0
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -250,10 +248,6 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: _navBarIndex,
         selectedItemColor: Colors.blueAccent,
         unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        elevation: 5,
         onTap: (index) {
           if (index == 1) {
             // Handle the center button tap
@@ -271,6 +265,9 @@ class _HomeScreenState extends State<HomeScreen> {
             });
           }
         },
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        elevation: 5,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: ExpandableFab(
@@ -493,6 +490,8 @@ class _HomeScreenState extends State<HomeScreen> {
             _featureCard("My Hydration", Icons.local_drink, screenWidth, context),
             SizedBox(width: screenWidth * 0.03),
             _featureCard("My Glucose", Icons.bloodtype, screenWidth, context),
+            SizedBox(width: screenWidth * 0.03),
+            _featureCard("Speed Meter", Icons.speed, screenWidth, context), // New Speed Meter card
           ],
         ),
       ),
@@ -571,12 +570,32 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _featureCard(String title, IconData icon, double screenWidth, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (title == "My Heart") {
+        switch (title) {
+          case "My Heart":
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => HeartRateDetailsScreen()),
+            );
+            break;
+          case "My SpO2":
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => Spo2DetailsScreen()),
+            );
+            break;
+          case "My Hydration":
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => WaterDetailsScreen()),
+            );
+            break;
+          case "My Glucose":
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => GlucoseDetailsScreen()),
+            );
+            break;
+          case "Speed Meter":
           Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => HeartRateDetailsScreen()),
-          ).then((value) {
-            print("Navigated to HeartRateDetailsScreen");
-          });
+            MaterialPageRoute(builder: (context) => SpeedMeterScreen()),
+          );
+            break;
         }
       },
       child: Container(

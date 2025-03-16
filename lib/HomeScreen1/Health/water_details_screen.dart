@@ -5,16 +5,26 @@ import 'package:intl/intl.dart';
 class WaterDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String todayDate = DateFormat('EEE, d MMM yyyy').format(DateTime.now());
+    String todayDate = DateFormat('d/M/yyyy').format(DateTime.now());
 
     return Scaffold(
-      backgroundColor: Color(0xFF005F40),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        title: Text(
+          "Hydration",
+          style: GoogleFonts.plusJakartaSans(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Color(0xFFAAD2FF),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       body: SingleChildScrollView(
@@ -22,51 +32,57 @@ class WaterDetailsScreen extends StatelessWidget {
           children: [
             // Header Section
             Container(
-              padding: EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              height: 300,
+              decoration: BoxDecoration(
+                color: Color(0xFFAAD2FF),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(40),
+                  bottomRight: Radius.circular(40),
+                ),
+              ),
+              child: Stack(
+                alignment: Alignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        todayDate,
-                        style: GoogleFonts.lato(
-                          color: Colors.white,
-                          fontSize: 14,
-                        ),
-                      ),
-                      Icon(
-                        Icons.more_horiz,
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
+                  // Blue circle background
                   Center(
                     child: Container(
-                      width: 150,
-                      height: 150,
+                      width: 229,
+                      height: 229,
                       decoration: BoxDecoration(
+                        color: Color(0xFF419AFF),
                         shape: BoxShape.circle,
-                        color: Colors.white.withOpacity(0.2),
-                      ),
-                      child: Center(
-                        child: Image.asset(
-                          'assets/water_icon.png', // Ensure this path is correct
-                          width: 100,
-                          height: 100,
-                        ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Text(
-                    "Your Water",
-                    style: GoogleFonts.lato(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
+                  Center(
+                    child: Container(
+                      width: 185,
+                      height: 185,
+                      decoration: BoxDecoration(
+                        color: Color(0xFF70B3FF),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Container(
+                      width: 139,
+                      height: 139,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFA2CEFF),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Image.asset(
+                      'assets/water_icon.png', // Ensure this path is correct
+                      width: 80,
+                      height: 105,
+                      errorBuilder: (context, error, stackTrace) {
+                        print("Error loading water image: $error");
+                        return Icon(Icons.error, size: 80, color: Colors.red);
+                      },
                     ),
                   ),
                 ],
@@ -78,50 +94,66 @@ class WaterDetailsScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
+                  topLeft: Radius.circular(60),
+                ),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.white, Color(0xFFE9F8FF)],
                 ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildDetailCard("Average", "3 bottles"),
-                      _buildDetailCard("Maximum", "5 bottles"),
-                      _buildDetailCard("Minimum", "2 bottles"),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  // Add your chart or graph here
+                  // Combined Detail Card
                   Container(
-                    height: 200,
+                    padding: EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
+                      color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Center(
-                      child: Image.asset(
-                        'assets/water_graph.png', // Ensure this path is correct
-                        fit: BoxFit.contain,
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        _buildDetailText("Average", "3 bottles"),
+                        _buildDetailText("Maximum", "5 bottles"),
+                        _buildDetailText("Minimum", "2 bottles"),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Align(
-                    alignment: Alignment.center,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Add logic for the plus button
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF005F40),
-                        shape: CircleBorder(),
-                        padding: EdgeInsets.all(15),
+                  SizedBox(height: 30),
+                  // Chart Placeholder
+                  Stack(
+                    children: [
+                      Container(
+                        height: 250,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Hydration Chart",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ),
                       ),
-                      child: Icon(Icons.add, color: Colors.white, size: 30),
-                    ),
+                      Positioned(
+                        bottom: 10,
+                        right: 10,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Add logic for the plus button
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF0078FF),
+                            shape: CircleBorder(),
+                            padding: EdgeInsets.all(10),
+                          ),
+                          child: Icon(Icons.add, color: Colors.white, size: 20),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -132,32 +164,26 @@ class WaterDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDetailCard(String title, String value) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        children: [
-          Text(
-            title,
-            style: GoogleFonts.lato(
-              fontSize: 14,
-              color: Colors.grey[600],
-            ),
+  Widget _buildDetailText(String title, String value) {
+    return Column(
+      children: [
+        Text(
+          title,
+          style: GoogleFonts.plusJakartaSans(
+            fontSize: 14,
+            color: Color(0xFF044997),
+            fontWeight: FontWeight.bold,
           ),
-          SizedBox(height: 5),
-          Text(
-            value,
-            style: GoogleFonts.lato(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+        ),
+        SizedBox(height: 10),
+        Text(
+          value,
+          style: GoogleFonts.plusJakartaSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

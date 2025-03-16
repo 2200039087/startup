@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'StoreScreen.dart';
-import 'WorkoutScreen.dart'; // Import the new WorkoutScreen
+import 'Store/StoreScreen.dart';
+import 'WorkOut/WorkoutScreen.dart'; // Import the new WorkoutScreen
 
 class ExploreScreen extends StatelessWidget {
   @override

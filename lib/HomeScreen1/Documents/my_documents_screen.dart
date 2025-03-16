@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart'; // For date formatting
-import 'folderscreen.dart'; // Import the FolderScreen
+import 'Files/FolderScreen.dart';
+ // Import the FolderScreen
 
 class MyDocumentsScreen extends StatefulWidget {
   @override

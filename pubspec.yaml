@@ -38,12 +38,9 @@ dependencies:
   carousel_slider: ^5.0.0
   percent_indicator: ^4.2.3
   flutter_vector_icons: ^2.0.0
-<<<<<<< HEAD
-  shared_preferences: ^2.0.6
-=======
   expandable_fab_lite: ^0.0.2
   flutter_speed_dial: ^6.2.0
-  camera: ^0.11.1
+  camera: ^0.10.5
   mobile_scanner: ^3.2.0
   file_picker: ^9.0.2
   shared_preferences: ^2.0.15
@@ -51,9 +48,9 @@ dependencies:
   google_sign_in: ^5.4.2
   flutter_spinkit: ^5.0.0
   animated_text_kit: ^4.2.0
+  fluttertoast: ^8.0.8
 
 
->>>>>>> e77eebdb63288422172d5d7f9d6cf4e202c790a0
 
 
   # The following adds the Cupertino Icons font to your application.
