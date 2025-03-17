@@ -70,7 +70,9 @@ class PopupMenuScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => MyDetailsScreen()),
               );
             }),
-            _menuItem("Settings", Icons.settings, context, onMenuToggle),
+            _menuItem("Customer Service", Icons.settings, context, () {
+              _showCustomerService(context);
+            }),
             _menuItem("Terms and Conditions", Icons.description, context, () {
               _showTermsAndConditions(context);
             }),
@@ -128,7 +130,7 @@ class PopupMenuScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            _buildHeader(),
+            _buildHeader("Terms and Conditions"),
             Expanded(
               child: SingleChildScrollView(
                 padding: EdgeInsets.all(16),
@@ -145,7 +147,73 @@ class PopupMenuScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  void _showCustomerService(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return _buildCustomerServiceCard(context);
+      },
+    );
+  }
+
+  Widget _buildCustomerServiceCard(BuildContext context) {
+    return Center(
+      child: Container(
+        width: 300, // Adjusted width for Customer Service
+        height: 270, // Adjusted height for Customer Service
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.4),
+              blurRadius: 10,
+              spreadRadius: 5,
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            _buildHeader("Customer Service"),
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Email:",
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      "support@vitalhealthsolutions.in",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    SizedBox(height: 15),
+                    Text(
+                      "Phone:",
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      "+91 72072 87207",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            _buildFooter(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader(String title) {
     return Container(
       width: double.infinity,
       height: 55,
@@ -158,7 +226,7 @@ class PopupMenuScreen extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          "Terms and Conditions",
+          title,
           style: TextStyle(
             fontFamily: 'Plus Jakarta Sans',
             fontSize: 16,
