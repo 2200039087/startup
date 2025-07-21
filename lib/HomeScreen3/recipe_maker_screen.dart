@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:ui'; // For BackdropFilter
 
 class RecipeMakerScreen extends StatefulWidget {
   @override
@@ -11,6 +12,10 @@ class _RecipeMakerScreenState extends State<RecipeMakerScreen> {
   List<String> _includedIngredients = [];
   List<String> _excludedIngredients = [];
   String _selectedMealType = "LUNCH"; // Default selected meal type
+  bool _isCardVisible = false; // State variable to manage card visibility
+  String _selectedCookingFor = "Yourself"; // Default selected cooking for
+  List<String> _addedPeople = []; // List to store added people
+  TextEditingController _nameController = TextEditingController(); // Controller for the text field
 
   void _increaseCalories() {
     setState(() {
@@ -44,246 +49,396 @@ class _RecipeMakerScreenState extends State<RecipeMakerScreen> {
     });
   }
 
+  void _toggleCardVisibility() {
+    setState(() {
+      _isCardVisible = !_isCardVisible;
+      if (!_isCardVisible) {
+        _addedPeople.clear(); // Clear added people when card is closed
+      }
+    });
+  }
+
+  void _selectCookingFor(String cookingFor) {
+    setState(() {
+      _selectedCookingFor = cookingFor;
+    });
+  }
+
+  void _addPerson(String person) {
+    setState(() {
+      _addedPeople.add(person);
+      _nameController.clear(); // Clear the text field after adding
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Header Section
-            Stack(
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: double.infinity,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFFFDAC3),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 40,
-                  left: 20,
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back, color: Color(0xFFFF6000)),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 46.0),
-                    child: Text(
-                      "Recipe Maker",
-                      style: GoogleFonts.plusJakartaSans(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFB04200),
+                // Header Section
+                Stack(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 140,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFFFDAC3),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(30),
+                          bottomRight: Radius.circular(30),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-            // Calories and Meal Type Section
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Row(
-                children: [
-                  // Amount of Calories Card
-                  Expanded(
-                    child: SizedBox(
-                      height: 200, // Fixed height for uniformity
-                      child: Card(
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Amount of calories",
-                                style: GoogleFonts.plusJakartaSans(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFFB04200),
-                                ),
-                              ),
-                              SizedBox(height: 50),
-                              Center(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                      icon: Icon(Icons.remove_circle, color: Color(0xFFFF6000)),
-                                      onPressed: _decreaseCalories,
-                                    ),
-                                    SizedBox(width: 0), // Space between elements
-                                    Text(
-                                      _calories.toString(),
-                                      style: GoogleFonts.plusJakartaSans(
-                                        fontSize: 26, // Adjusted font size
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    SizedBox(width: 0), // Space between elements
-                                    IconButton(
-                                      icon: Icon(Icons.add_circle, color: Color(0xFFFF6000)),
-                                      onPressed: _increaseCalories,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    _buildToggleButton("Automatic"),
-                                    SizedBox(width: 1), // Space between buttons
-                                    _buildToggleButton("Custom"),
-                                  ],
-                                ),
-                              ),
-                            ],
+                    Positioned(
+                      top: 40,
+                      left: 20,
+                      child: IconButton(
+                        icon: Icon(Icons.arrow_back, color: Color(0xFFFF6000)),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 46.0),
+                        child: Text(
+                          "Recipe Maker",
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFB04200),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 3), // Space between cards
-                  // Meal Type Card
-                  Expanded(
-                    child: SizedBox(
-                      height: 200, // Fixed height for uniformity
-                      child: Card(
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(7.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Meal-type",
-                                style: GoogleFonts.plusJakartaSans(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFFB04200),
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              _buildMealTypeButton("BREAKFAST", () => _selectMealType("BREAKFAST")),
-                              _buildMealTypeButton("LUNCH", () => _selectMealType("LUNCH")),
-                              _buildMealTypeButton("SNACKS", () => _selectMealType("SNACKS")),
-                              _buildMealTypeButton("DINNER", () => _selectMealType("DINNER")),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // Optional Section
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  ],
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                // Calories and Meal Type Section
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Row(
                     children: [
-                      Text(
-                        "Optional",
-                        style: GoogleFonts.plusJakartaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFFB04200),
+                      // Amount of Calories Card
+                      Expanded(
+                        child: SizedBox(
+                          height: 200, // Fixed height for uniformity
+                          child: Card(
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Amount of calories",
+                                    style: GoogleFonts.plusJakartaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFFB04200),
+                                    ),
+                                  ),
+                                  SizedBox(height: 50),
+                                  Center(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        IconButton(
+                                          icon: Icon(Icons.remove_circle, color: Color(0xFFFF6000)),
+                                          onPressed: _decreaseCalories,
+                                        ),
+                                        SizedBox(width: 0), // Space between elements
+                                        Text(
+                                          _calories.toString(),
+                                          style: GoogleFonts.plusJakartaSans(
+                                            fontSize: 26, // Adjusted font size
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        SizedBox(width: 0), // Space between elements
+                                        IconButton(
+                                          icon: Icon(Icons.add_circle, color: Color(0xFFFF6000)),
+                                          onPressed: _increaseCalories,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        _buildToggleButton("Automatic"),
+                                        SizedBox(width: 1), // Space between buttons
+                                        _buildToggleButton("Custom"),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                      SizedBox(height: 10),
-                      _buildIngredientInput(
-                          "Enter ingredients to include", _includedIngredients, _addIncludedIngredient),
-                      _buildIngredientInput(
-                          "Enter ingredients to exclude", _excludedIngredients, _addExcludedIngredient),
-                      SizedBox(height: 10),
-                      Text(
-                        "Enter cuisine (Ex: Indian, Chinese)",
-                        style: GoogleFonts.plusJakartaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black.withOpacity(0.5),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Container(
-                        width: double.infinity,
-                        height: 37,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.4),
-                              offset: Offset(-2, 2),
-                              blurRadius: 6.7,
+                      SizedBox(width: 3), // Space between cards
+                      // Meal Type Card
+                      Expanded(
+                        child: SizedBox(
+                          height: 200, // Fixed height for uniformity
+                          child: Card(
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.25),
-                              offset: Offset(2, -2),
-                              blurRadius: 5.9,
+                            child: Padding(
+                              padding: const EdgeInsets.all(7.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Meal-type",
+                                    style: GoogleFonts.plusJakartaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFFB04200),
+                                    ),
+                                  ),
+                                  SizedBox(height: 8),
+                                  _buildMealTypeButton("BREAKFAST", () => _selectMealType("BREAKFAST")),
+                                  _buildMealTypeButton("LUNCH", () => _selectMealType("LUNCH")),
+                                  _buildMealTypeButton("SNACKS", () => _selectMealType("SNACKS")),
+                                  _buildMealTypeButton("DINNER", () => _selectMealType("DINNER")),
+                                ],
+                              ),
                             ),
-                          ],
-                        ),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(horizontal: 15),
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
-              ),
-            ),
-            // Create Button
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text("Create"),
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Color(0xFFFF6000),
-                    padding: EdgeInsets.symmetric(horizontal: 44, vertical: 10),
+                // Optional Section
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Card(
+                    elevation: 4,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Optional",
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFB04200),
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          _buildIngredientInput(
+                              "Enter ingredients to include", _includedIngredients, _addIncludedIngredient),
+                          _buildIngredientInput(
+                              "Enter ingredients to exclude", _excludedIngredients, _addExcludedIngredient),
+                          SizedBox(height: 10),
+                          Text(
+                            "Enter cuisine (Ex: Indian, Chinese)",
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black.withOpacity(0.5),
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            width: double.infinity,
+                            height: 37,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.4),
+                                  offset: Offset(-2, 2),
+                                  blurRadius: 6.7,
+                                ),
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.25),
+                                  offset: Offset(2, -2),
+                                  blurRadius: 5.9,
+                                ),
+                              ],
+                            ),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.symmetric(horizontal: 15),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                // Create Button
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: ElevatedButton(
+                      onPressed: _toggleCardVisibility,
+                      child: Text("Create"),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Color(0xFFFF6000),
+                        padding: EdgeInsets.symmetric(horizontal: 44, vertical: 10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Blurred Background and Card
+          if (_isCardVisible)
+            Positioned.fill(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0), // Added padding around the card
+                    child: Card(
+                      elevation: 8,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "Who are you cooking for?",
+                              style: GoogleFonts.plusJakartaSans(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFFB04200),
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ChoiceChip(
+                                  label: Text("Yourself"),
+                                  selected: _selectedCookingFor == "Yourself",
+                                  onSelected: (selected) {
+                                    if (selected) _selectCookingFor("Yourself");
+                                  },
+                                ),
+                                SizedBox(width: 10),
+                                ChoiceChip(
+                                  label: Text("Others"),
+                                  selected: _selectedCookingFor == "Others",
+                                  onSelected: (selected) {
+                                    if (selected) _selectCookingFor("Others");
+                                  },
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 20),
+                            TextField(
+                              controller: _nameController,
+                              decoration: InputDecoration(
+                                labelText: "Add them",
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                suffixIcon: IconButton(
+                                  icon: Icon(Icons.add),
+                                  onPressed: () {
+                                    if (_nameController.text.isNotEmpty) {
+                                      _addPerson(_nameController.text);
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Wrap(
+                              spacing: 8.0,
+                              children: _addedPeople.map((person) {
+                                return InputChip(
+                                  label: Text(
+                                    person,
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  backgroundColor: Color(0xFFFF6000),
+                                  onDeleted: () {
+                                    setState(() {
+                                      _addedPeople.remove(person);
+                                    });
+                                  },
+                                );
+                              }).toList(),
+                            ),
+                            SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: _toggleCardVisibility,
+                                  child: Text("Cancel"),
+                                  style: ElevatedButton.styleFrom(
+                                    foregroundColor: Colors.white,
+                                    backgroundColor: Color(0xFFFF6000),
+                                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    _toggleCardVisibility();
+                                  },
+                                  child: Text("Add"),
+                                  style: ElevatedButton.styleFrom(
+                                    foregroundColor: Colors.white,
+                                    backgroundColor: Color(0xFFFF6000),
+                                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+        ],
       ),
     );
   }
