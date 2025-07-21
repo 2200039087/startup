@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vitalstats/HomeScreen1/Explore/WorkOut/CountdownScreen1.dart';
 
-import 'WorkoutDetailScreen.dart';
-
-class WorkoutScreen extends StatelessWidget {
+class WorkoutDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,17 +70,15 @@ class WorkoutScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // Workout title
+                  // Name in the bottom right of the header
                   Positioned(
-                    left: 0,
-                    right: 0,
-                    top: 65,
+                    right: 20,
+                    bottom: 10,
                     child: Text(
-                      'Workout',
-                      textAlign: TextAlign.center,
+                      'Name',
                       style: TextStyle(
                         fontFamily: 'Plus Jakarta Sans',
-                        fontSize: 32,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF044997),
                       ),
@@ -91,88 +88,19 @@ class WorkoutScreen extends StatelessWidget {
               ),
             ),
           ),
-          // Search bar and filter
-          Positioned(
-            top: 190,
-            left: 20,
-            right: 20,
-            child: Row(
-              children: [
-                // Search bar
-                Expanded(
-                  child: Container(
-                    height: 45,
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.4),
-                          offset: Offset(-2, 2),
-                          blurRadius: 6.7,
-                        ),
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.25),
-                          offset: Offset(2, -2),
-                          blurRadius: 5.9,
-                        ),
-                        BoxShadow(
-                          color: Colors.white.withOpacity(0.9),
-                          offset: Offset(-2, -2),
-                          blurRadius: 9.3,
-                        ),
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.9),
-                          offset: Offset(2, 2),
-                          blurRadius: 7.6,
-                        ),
-                      ],
-                    ),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Search Store',
-                        prefixIcon: Icon(Icons.search, color: Colors.grey),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(width: 10),
-                // Filter button
-                Container(
-                  width: 45,
-                  height: 45,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Icon(Icons.filter_list, color: Colors.white),
-                ),
-              ],
-            ),
-          ),
           // Workout cards in a scrollable list
           Positioned(
             top: 220,
-            bottom: 0,
-            left: 5,
-            right: 5,
-            child: ListView.builder(
-              itemCount: 10, // Example count, adjust as needed
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => WorkoutDetailScreen()),
-                    );
-                  },
-                  child: Container(
+            bottom: 80,
+            left: 20,
+            right: 20,
+            child: SingleChildScrollView(
+              child: Column(
+                children: List.generate(3, (index) {
+                  return Container(
                     margin: EdgeInsets.only(bottom: 15),
                     padding: EdgeInsets.all(15),
-                    height: 100,
+                    height: 138,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(5),
@@ -227,9 +155,53 @@ class WorkoutScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
+                  );
+                }),
+              ),
+            ),
+          ),
+          // Start button
+          Positioned(
+            bottom: 20,
+            left: 20,
+            right: 20,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CountdownScreen1()),
                 );
               },
+              child: Container(
+                height: 48,
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.white.withOpacity(0.89),
+                      offset: Offset(-5, -5),
+                      blurRadius: 14.8,
+                    ),
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.87),
+                      offset: Offset(3, 3),
+                      blurRadius: 12.3,
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Text(
+                    'Start',
+                    style: TextStyle(
+                      fontFamily: 'Plus Jakarta Sans',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
         ],
@@ -240,6 +212,6 @@ class WorkoutScreen extends StatelessWidget {
 
 void main() {
   runApp(MaterialApp(
-    home: WorkoutScreen(),
+    home: WorkoutDetailScreen(),
   ));
 }

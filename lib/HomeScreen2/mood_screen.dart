@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:intl/intl.dart'; // For formatting dates
 
 class MoodScreen extends StatefulWidget {
   @override
@@ -10,8 +8,6 @@ class MoodScreen extends StatefulWidget {
 
 class _MoodScreenState extends State<MoodScreen> {
   String _selectedItem = 'Item 1'; // Default selected item
-  DateTime _selectedDay = DateTime.now();
-  DateTime _focusedDay = DateTime.now();
 
   // List of items for the dropdown
   final List<String> _items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
@@ -37,9 +33,8 @@ class _MoodScreenState extends State<MoodScreen> {
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () {Navigator.pop(context);
+            },
           color: Color(0xFFA100FF),
         ),
         backgroundColor: Color(0xFFE4B6FF),
@@ -52,64 +47,61 @@ class _MoodScreenState extends State<MoodScreen> {
       body: Column(
         children: [
           SizedBox(height: 15),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () => _showMonthPicker(context),
-                child: Text(
-                  "${DateFormat('MMMM').format(_focusedDay)}",
-                  style: GoogleFonts.plusJakartaSans(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Color(0xFF4E007B),
-                  ),
+          Text(
+            "January, 2025",
+            style: GoogleFonts.plusJakartaSans(
+              fontWeight: FontWeight.bold,
+              fontSize: 32,
+              color: Color(0xFF4E007B),
+              shadows: [
+                Shadow(
+                  blurRadius: 6.3,
+                  color: Color.fromARGB(195, 198, 225, 255),
+                  offset: Offset(0, 0),
                 ),
-              ),
-              SizedBox(width: 10),
-              GestureDetector(
-                onTap: () => _showYearPicker(context),
-                child: Text(
-                  "${DateFormat('yyyy').format(_focusedDay)}",
-                  style: GoogleFonts.plusJakartaSans(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Color(0xFF4E007B),
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
           SizedBox(height: 20),
-          TableCalendar(
-            focusedDay: _focusedDay,
-            firstDay: DateTime.utc(2023, 1, 1),
-            lastDay: DateTime.utc(2025, 12, 31),
-            selectedDayPredicate: (day) {
-              return isSameDay(_selectedDay, day);
-            },
-            onDaySelected: (selectedDay, focusedDay) {
-              setState(() {
-                _selectedDay = selectedDay;
-                _focusedDay = focusedDay; // Update focused day
-              });
-            },
-            headerStyle: HeaderStyle(
-              formatButtonVisible: false,
-              titleCentered: true,
-            ),
-            calendarStyle: CalendarStyle(
-              todayDecoration: BoxDecoration(
-                color: Color(0xFF4E007B),
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(5),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text("S", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold)),
+              Text("M", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold)),
+              Text("T", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold)),
+              Text("W", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold)),
+              Text("Th", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold)),
+              Text("F", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold)),
+              Text("Sa", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold)),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text("1", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold)),
+              Text("2", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold)),
+              Container(
+                width: 25,
+                height: 25,
+                decoration: BoxDecoration(
+                  color: Color(0xFF4E007B),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Center(
+                  child: Text(
+                    "3",
+                    style: GoogleFonts.plusJakartaSans(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
-              selectedDecoration: BoxDecoration(
-                color: Color(0xFF4E007B),
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(5),
-              ),
-            ),
+              Text("4", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold)),
+              Text("5", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold)),
+              Text("6", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold)),
+              Text("7", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold)),
+            ],
           ),
           Spacer(),
           Container(
@@ -164,91 +156,5 @@ class _MoodScreenState extends State<MoodScreen> {
       ),
       backgroundColor: Color(0xFFF2DCFF),
     );
-  }
-
-  void _showMonthPicker(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: 250,
-          child: Column(
-            children: [
-              SizedBox(height: 10),
-              Text(
-                "Select Month",
-                style: GoogleFonts.plusJakartaSans(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-              SizedBox(height: 20),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 12,
-                  itemBuilder: (context, index) {
-                    final month = DateFormat('MMMM').format(DateTime(2023, index + 1));
-                    return ListTile(
-                      title: Text(month),
-                      onTap: () => _selectMonth(index + 1),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  void _showYearPicker(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: 250,
-          child: Column(
-            children: [
-              SizedBox(height: 10),
-              Text(
-                "Select Year",
-                style: GoogleFonts.plusJakartaSans(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-              SizedBox(height: 20),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 3, // Assuming 2023 to 2025
-                  itemBuilder: (context, index) {
-                    final year = 2023 + index;
-                    return ListTile(
-                      title: Text("$year"),
-                      onTap: () => _selectYear(year),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  void _selectMonth(int month) {
-    setState(() {
-      _focusedDay = DateTime(_focusedDay.year, month, _focusedDay.day);
-    });
-    Navigator.pop(context);
-  }
-
-  void _selectYear(int year) {
-    setState(() {
-      _focusedDay = DateTime(year, _focusedDay.month, _focusedDay.day);
-    });
-    Navigator.pop(context);
   }
 }

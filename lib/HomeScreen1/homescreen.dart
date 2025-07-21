@@ -166,6 +166,165 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void _showNotificationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Stack(
+              children: [
+                // Blurred background
+                Positioned.fill(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 4.55, sigmaY: 4.55),
+                    child: Container(
+                      color: Colors.black.withOpacity(0.24),
+                    ),
+                  ),
+                ),
+                // Floating card
+                Center(
+                  child: Dialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Container(
+                      width: 300,
+                      height: 200,
+                      padding: EdgeInsets.all(16.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.87),
+                            blurRadius: 12.3,
+                            offset: Offset(3, 3),
+                          ),
+                          BoxShadow(
+                            color: Colors.white.withOpacity(0.4),
+                            blurRadius: 2,
+                            offset: Offset(1, 1),
+                          ),
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            blurRadius: 2,
+                            offset: Offset(-1, -1),
+                          ),
+                        ],
+                      ),
+                      child: ListView.builder(
+                        itemCount: 3, // Example: 3 notifications
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text("Notification $index"),
+                            subtitle: Text("This is notification content $index."),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _showPremiumDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Stack(
+              children: [
+                // Blurred background
+                Positioned.fill(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 4.55, sigmaY: 4.55),
+                    child: Container(
+                      color: Colors.black.withOpacity(0.24),
+                    ),
+                  ),
+                ),
+                // Floating card
+                Center(
+                  child: Dialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Container(
+                      width: 300,
+                      height: 200,
+                      padding: EdgeInsets.all(16.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.87),
+                            blurRadius: 12.3,
+                            offset: Offset(3, 3),
+                          ),
+                          BoxShadow(
+                            color: Colors.white.withOpacity(0.4),
+                            blurRadius: 2,
+                            offset: Offset(1, 1),
+                          ),
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            blurRadius: 2,
+                            offset: Offset(-1, -1),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "Premium Subscription",
+                            style: GoogleFonts.inter(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Text(
+                            "You have 30 days left for your premium subscription.",
+                            style: TextStyle(color: Colors.grey[600]),
+                          ),
+                          SizedBox(height: 20),
+                          ElevatedButton(
+                            onPressed: () {
+                              // Handle extend subscription action
+                              Navigator.of(context).pop();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xFF0078FF),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: Text("Extend your subscription"),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
   void _toggleMenu() {
     setState(() {
       _isMenuOpen = !_isMenuOpen;
@@ -350,7 +509,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildHeader(screenWidth, screenHeight),
+                  _buildHeader(context, screenWidth, screenHeight),
                   SizedBox(height: screenHeight * 0.02),
                   _buildAboutYou(screenWidth),
                   SizedBox(height: screenHeight * 0.02),
@@ -368,7 +527,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildHeader(double screenWidth, double screenHeight) {
+  Widget _buildHeader(BuildContext context, double screenWidth, double screenHeight) {
     return Container(
       decoration: BoxDecoration(
         color: Color(0xFFAAD2FF),
@@ -400,19 +559,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    "+99  •  Premium",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: screenWidth * 0.035,
-                      fontWeight: FontWeight.normal,
+                  GestureDetector(
+                    onTap: _showPremiumDialog,
+                    child: Text(
+                      "+99  •  Premium",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: screenWidth * 0.035,
+                        fontWeight: FontWeight.normal,
+                      ),
                     ),
                   ),
                 ],
               ),
-              Icon(
-                Icons.notifications,
-                color: Colors.white,
+              GestureDetector(
+                onTap: _showNotificationDialog,
+                child: Icon(
+                  Icons.notifications,
+                  color: Colors.white,
+                ),
               ),
             ],
           ),
@@ -592,9 +757,9 @@ class _HomeScreenState extends State<HomeScreen> {
             );
             break;
           case "Speed Meter":
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => SpeedMeterScreen()),
-          );
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => SpeedMeterScreen()),
+            );
             break;
         }
       },

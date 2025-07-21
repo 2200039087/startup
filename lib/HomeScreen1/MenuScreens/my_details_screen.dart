@@ -27,7 +27,7 @@ class MyDetailsScreen extends StatelessWidget {
               left: 0,
               right: 0,
               child: Container(
-                height: 132,
+                height: 110,
                 decoration: BoxDecoration(
                   color: Color(0xFFAAD2FF),
                   borderRadius: BorderRadius.only(
@@ -42,7 +42,7 @@ class MyDetailsScreen extends StatelessWidget {
                       left: 16,
                       top: 16,
                       child: IconButton(
-                        icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                        icon: Icon(Icons.arrow_back, color: Colors.black),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
@@ -51,7 +51,7 @@ class MyDetailsScreen extends StatelessWidget {
                     // Centered "My details" text
                     Center(
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 25.0),
+                        padding: const EdgeInsets.only(top: 0),
                         child: Text(
                           'My details',
                           style: TextStyle(
@@ -70,7 +70,7 @@ class MyDetailsScreen extends StatelessWidget {
 
             // Profile circle
             Positioned(
-              top: 170,
+              top: 120,
               left: MediaQuery.of(context).size.width / 2 - 55,
               child: Container(
                 width: 110,
@@ -82,9 +82,9 @@ class MyDetailsScreen extends StatelessWidget {
               ),
             ),
 
-            // Name and details
+            // Name and age
             Positioned(
-              top: 312,
+              top: 230,
               left: 0,
               right: 0,
               child: Column(
@@ -99,41 +99,26 @@ class MyDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'DOB: 06/01/2005',
-                        style: TextStyle(
-                          fontFamily: 'Plus Jakarta Sans',
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF044997),
-                        ),
-                      ),
-                      SizedBox(width: 50),
-                      Text(
-                        'Age: 20',
-                        style: TextStyle(
-                          fontFamily: 'Plus Jakarta Sans',
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF044997),
-                        ),
-                      ),
-                    ],
+                  Text(
+                    'Age: 20',
+                    style: TextStyle(
+                      fontFamily: 'Plus Jakarta Sans',
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF044997),
+                    ),
                   ),
                 ],
               ),
             ),
 
-            // First card
+            // About you card
             Positioned(
-              top: 400,
+              top: 300,
               left: 20,
-              right: 20, // Ensure it fits within the screen width
+              right: 20,
               child: Container(
-                height: 200, // Adjusted height to prevent overlap
+                height: 210,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   boxShadow: [
@@ -148,18 +133,75 @@ class MyDetailsScreen extends StatelessWidget {
                       blurRadius: 12.3,
                     ),
                   ],
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'About you',
+                        style: TextStyle(
+                          fontFamily: 'Plus Jakarta Sans',
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF044997),
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: ' DOB',
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.symmetric(vertical: 5), // Adjust padding
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: ' Gmail',
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.symmetric(vertical: 5), // Adjust padding
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                labelText: ' Weight',
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(vertical: 5), // Adjust padding
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 5),
+                          Expanded(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                labelText: ' Height',
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(vertical: 5 ,horizontal: 5), // Adjust padding
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
 
-            // Second card
+            // My family card
             Positioned(
-              top: 620,
+              top: 520,
               left: 20,
-              right: 20, // Ensure it fits within the screen width
+              right: 20,
+              bottom: 20, // Ensure it doesn't overflow
               child: Container(
-                height: 200, // Adjusted height to prevent overlap
                 decoration: BoxDecoration(
                   color: Colors.white,
                   boxShadow: [
@@ -174,7 +216,58 @@ class MyDetailsScreen extends StatelessWidget {
                       blurRadius: 12.3,
                     ),
                   ],
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'My family',
+                        style: TextStyle(
+                          fontFamily: 'Plus Jakarta Sans',
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF044997),
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              // Wrap each FamilyMemberCard in a Card widget
+                              Card(
+                                margin: EdgeInsets.symmetric(vertical: 4.0),
+                                child: FamilyMemberCard(name: 'Vamsi', relation: 'Son'),
+                              ),
+                              Card(
+                                margin: EdgeInsets.symmetric(vertical: 4.0),
+                                child: FamilyMemberCard(name: 'Vamsi', relation: 'Son'),
+                              ),
+                              Card(
+                                margin: EdgeInsets.symmetric(vertical: 4.0),
+                                child: FamilyMemberCard(name: 'Vamsi', relation: 'Son'),
+                              ),
+                              Card(
+                                margin: EdgeInsets.symmetric(vertical: 4.0),
+                                child: FamilyMemberCard(name: 'Vamsi', relation: 'Son'),
+                              ),
+                              Card(
+                                margin: EdgeInsets.symmetric(vertical: 4.0),
+                                child: FamilyMemberCard(name: 'Vamsi', relation: 'Son'),
+                              ),
+                              Card(
+                                margin: EdgeInsets.symmetric(vertical: 4.0),
+                                child: FamilyMemberCard(name: 'Vamsi', relation: 'Son'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -183,4 +276,131 @@ class MyDetailsScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class FamilyMemberCard extends StatefulWidget {
+  final String name;
+  final String relation;
+
+  FamilyMemberCard({required this.name, required this.relation});
+
+  @override
+  _FamilyMemberCardState createState() => _FamilyMemberCardState();
+}
+
+class _FamilyMemberCardState extends State<FamilyMemberCard> {
+  bool canViewDocuments = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+      child: Row(
+        children: [
+          // Profile picture placeholder
+          Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              color: Color(0xFFD9D9D9),
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+          SizedBox(width: 10),
+          // Name and relation
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      widget.name,
+                      style: TextStyle(
+                        fontFamily: 'Plus Jakarta Sans',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF044997),
+                      ),
+                    ),
+                    Spacer(),
+                    // Checkbox and delete icon aligned to the right
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Row(
+                          children: [
+                            Checkbox(
+                              value: canViewDocuments,
+                              onChanged: (value) {
+                                setState(() {
+                                  canViewDocuments = value!;
+                                });
+                              },
+                            ),
+                            Text(
+                              'can view documents',
+                              style: TextStyle(
+                                fontFamily: 'Plus Jakarta Sans',
+                                fontSize: 14,
+                                color: Color(0xFF044997),
+                              ),
+                            ),
+                          ],
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            // Handle delete action
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Delete Family Member'),
+                                  content: Text('Are you sure you want to delete this family member?'),
+                                  actions: [
+                                    TextButton(
+                                      child: Text('Cancel'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: Text('Delete'),
+                                      onPressed: () {
+                                        // Perform delete action
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Text(
+                  'Relation: ${widget.relation}',
+                  style: TextStyle(
+                    fontFamily: 'Plus Jakarta Sans',
+                    fontSize: 14,
+                    color: Color(0xFF044997),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: MyDetailsScreen(),
+  ));
 }

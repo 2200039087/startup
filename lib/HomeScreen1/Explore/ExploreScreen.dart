@@ -16,12 +16,12 @@ class ExploreScreen extends StatelessWidget {
             left: 0,
             right: 0,
             child: Container(
-              height: 150,
+              height: 180,
               decoration: BoxDecoration(
                 color: Color(0xFFAAD2FF),
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(40),
-                  bottomRight: Radius.circular(40),
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
                 ),
               ),
               child: Column(
@@ -44,7 +44,7 @@ class ExploreScreen extends StatelessWidget {
           ),
           // Body Section
           Positioned(
-            top: 160,
+            top: 180,
             left: 0,
             right: 0,
             bottom: 0,
